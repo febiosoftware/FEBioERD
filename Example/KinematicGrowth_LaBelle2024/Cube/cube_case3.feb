@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<febio_spec version="4.0">
+  <Module type="elastic-reaction-diffusion" />
+  <Control>
+    <analysis>TRANSIENT</analysis>
+    <time_steps>200</time_steps>
+    <step_size>1.5768e6</step_size>
+    <plot_zero_state>1</plot_zero_state>
+    <plot_stride>10</plot_stride>
+    <adaptor_re_solve>1</adaptor_re_solve>
+    <solver type="elastic-reaction-diffusion">
+      <symmetric_stiffness>non-symmetric</symmetric_stiffness>
+      <equation_scheme>staggered</equation_scheme>
+      <equation_order>default</equation_order>
+      <optimize_bw>0</optimize_bw>
+      <lstol>0.7</lstol>
+      <lsmin>0.01</lsmin>
+      <lsiter>5</lsiter>
+      <max_refs>20</max_refs>
+      <check_zero_diagonal>0</check_zero_diagonal>
+      <zero_diagonal_tol>0</zero_diagonal_tol>
+      <force_partition>0</force_partition>
+      <reform_each_time_step>1</reform_each_time_step>
+      <reform_augment>0</reform_augment>
+      <diverge_reform>1</diverge_reform>
+      <min_residual>1e-20</min_residual>
+      <max_residual>0</max_residual>
+      <dtol>1e-6</dtol>
+      <etol>1e-6</etol>
+      <rtol>1e-6</rtol>
+      <rhoi>0</rhoi>
+      <alpha>1</alpha>
+      <beta>0.25</beta>
+      <gamma>0.5</gamma>
+      <logSolve>0</logSolve>
+      <arc_length>0</arc_length>
+      <arc_length_scale>0</arc_length_scale>
+      <ctol>1e-6</ctol>
+      <force_positive_concentrations>0</force_positive_concentrations>
+      <qn_method type="Broyden">
+        <max_ups>10</max_ups>
+        <max_buffer_size>0</max_buffer_size>
+        <cycle_buffer>1</cycle_buffer>
+        <cmax>100000</cmax>
+      </qn_method>
+    </solver>
+  </Control>
+  <Globals>
+    <Constants>
+      <T>298</T>
+      <R>8.31415e-6</R>
+      <Fc>0</Fc>
+    </Constants>
+    <Solutes>
+      <solute id="1" name="A">
+        <charge_number>0</charge_number>
+        <molar_mass>1</molar_mass>
+        <density>1100e12</density>
+      </solute>
+      <solute id="2" name="B">
+        <charge_number>0</charge_number>
+        <molar_mass>1</molar_mass>
+        <density>1100e12</density>
+      </solute>
+      <solute id="3" name="C">
+        <charge_number>0</charge_number>
+        <molar_mass>2</molar_mass>
+        <density>1100e12</density>
+      </solute>
+    </Solutes>
+  </Globals>
+  <Material>
+    <material id="1" name="Material1" type="elastic-reaction-diffusion">
+      <solid type="kinematic growth">
+        <density>1100e12</density>
+        <elastic type="coupled Mooney-Rivlin">
+          <density>1100e12</density>
+          <c1>1.6667</c1>
+          <c2>0</c2>
+          <k>1</k>
+        </elastic>
+        <growth type="fiber growth">
+          <multiplier>1</multiplier>
+          <sol_id>3</sol_id>
+          <fiber type="vector">
+            <vector>0,0,1</vector>
+          </fiber>
+          <referential_normal_direction>1</referential_normal_direction>
+          <theta_gamma>0.3</theta_gamma>
+          <theta_a>-3.0</theta_a>
+          <k_min>0.0</k_min>
+          <k_max>1.0</k_max>
+        </growth>
+      </solid>
+      <solute sol="A">
+        <diffusivity type="diff-const-iso">
+          <free_diff>1</free_diff>
+          <diff>1e-20</diff>
+        </diffusivity>
+        <solubility type="solub-const">
+          <solub>1</solub>
+        </solubility>
+      </solute>
+      <solute sol="B">
+        <diffusivity type="diff-const-iso">
+          <free_diff>1</free_diff>
+          <diff>1e-20</diff>
+        </diffusivity>
+        <solubility type="solub-const">
+          <solub>1</solub>
+        </solubility>
+      </solute>
+      <solute sol="C">
+        <diffusivity type="diff-const-iso">
+          <free_diff>1</free_diff>
+          <diff>1e-20</diff>
+        </diffusivity>
+        <solubility type="solub-const">
+          <solub>1</solub>
+        </solubility>
+      </solute>
+      <reaction type="mass-action-forward-erd" name="Chemical Conversion">
+        <forward_rate type="constant reaction rate erd">
+          <k>3.171e-8</k>
+        </forward_rate>
+        <vR species="A">
+          <vR>1</vR>
+        </vR>
+        <vR species="B">
+          <vR>1</vR>
+        </vR>
+        <vP species="C">
+          <vP>1</vP>
+        </vP>
+      </reaction>
+      <reaction type="mass-action-forward-erd" name="A Supply">
+        <forward_rate type="constant reaction rate erd">
+          <k type="math">0.25*3.171e-8</k>
+        </forward_rate>
+        <vP species="A">
+          <vP>1</vP>
+        </vP>
+      </reaction>      
+      <reaction type="mass-action-forward-erd" name="A degradation">
+        <forward_rate type="constant reaction rate erd">
+          <k type="math">0.25*3.171e-8</k>
+        </forward_rate>
+        <vR species="A">
+          <vR>1</vR>
+        </vR>
+      </reaction>
+      <reaction type="mass-action-forward-erd" name="B Supply">
+        <forward_rate type="constant reaction rate erd">
+          <k type="math">0.25*3.171e-8</k>
+        </forward_rate>
+        <vP species="B">
+          <vP>1</vP>
+        </vP>
+      </reaction>
+      <reaction type="mass-action-forward-erd" name="B degradation">
+        <forward_rate type="constant reaction rate erd">
+          <k type="math">0.25*3.171e-8</k>
+        </forward_rate>
+        <vR species="B">
+          <vR>1</vR>
+        </vR>
+      </reaction>
+      <reaction type="mass-action-forward-erd" name="C degradation">
+        <forward_rate type="constant reaction rate erd">
+          <k type="math">1.0*3.171e-8</k>
+        </forward_rate>
+        <vR species="C">
+          <vR>1</vR>
+        </vR>
+      </reaction>
+      <reaction type="mass-action-forward-erd">
+        <forward_rate type="constant reaction rate erd">
+          <k type="math">(3.1718e-8)*exp(-1.0*((abs(X)+abs(Y))^2)/0.3)</k>
+        </forward_rate>
+        <vP species="C">
+          <vP>1</vP>
+        </vP>
+      </reaction>
+    </material>
+  </Material>
+  <Mesh from="./CubeTet10_Mesh.feb" />
+  <MeshDomains>
+    <SolidDomain name="Part1" mat="Material1" />
+  </MeshDomains>
+  <Initial>
+    <ic name="AInitialConcentration" node_set="AllNodes" type="initial concentration">
+      <dof>c1</dof>
+      <value>0</value>
+    </ic>
+    <ic name="BInitialConcentration" node_set="AllNodes" type="initial concentration">
+      <dof>c2</dof>
+      <value>0.0</value>
+    </ic>
+    <ic name="CInitialConcentration" node_set="AllNodes" type="initial concentration">
+      <dof>c3</dof>
+      <value>0</value>
+    </ic>
+  </Initial>
+  <Boundary>
+    <bc name="FixedBottom" node_set="BottomNodes" type="zero displacement">
+      <x_dof>0</x_dof>
+      <y_dof>0</y_dof>
+      <z_dof>1</z_dof>
+    </bc>
+    <bc name="XAxisFixedInY" node_set="XAxis" type="zero displacement">
+      <x_dof>0</x_dof>
+      <y_dof>1</y_dof>
+      <z_dof>0</z_dof>
+    </bc>
+    <bc name="YAxisFixedInX" node_set="YAxis" type="zero displacement">
+      <x_dof>1</x_dof>
+      <y_dof>0</y_dof>
+      <z_dof>0</z_dof>
+    </bc>
+  </Boundary>
+  <LoadData>
+    <load_controller id="1" type="loadcurve">
+      <interpolate>LINEAR</interpolate>
+      <extend>REPEAT</extend>
+      <points>
+        <point>0,7.884e6</point>
+        <point>1.577e7,7.884e6</point>
+      </points>
+    </load_controller>
+  </LoadData>
+  <Output>
+    <plotfile type="febio">
+      <var type="displacement" />
+      <var type="stress" />
+      <var type="SPR stress" />
+      <var type="nodal stress" />
+      <var type="relative volume" />
+      <var type="solute concentration erd" />
+      <var type="effective solute concentration erd" />
+      <var type="growth ratio" />
+      <var type="Jacobian" />
+      <var type="growth elastic Jacobian" />
+      <var type="growth Jacobian" />
+      <var type="growth activation" />
+      <var type="growth phi" />
+    </plotfile>
+  </Output>
+</febio_spec>
