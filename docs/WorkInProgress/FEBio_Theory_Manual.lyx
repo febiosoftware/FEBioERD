@@ -73,6 +73,7 @@ figs-within-sections
 \spellchecker_ignore english eq
 \spellchecker_ignore english Eqs
 \spellchecker_ignore english th
+\spellchecker_ignore english MRL
 \leftmargin 1in
 \topmargin 1in
 \rightmargin 1in
@@ -196,7 +197,7 @@ Theory Manual Version 4.5
 
 \begin_layout Date
 Last Updated:
- January 16,
+ September 10,
  2024
 \end_layout
 
@@ -472,7 +473,12 @@ status open
 
 \begin_layout Standard
 Development of the FEBio project is supported in part by a grant from the U.S.
- National Institutes of Health (R01GM083925).
+ National Institutes of Health (R01GM083925) and NSF (
+\nospellcheck on
+OAC
+\nospellcheck default
+ Award No.
+ 2246911).
 \end_layout
 
 \begin_layout Standard
@@ -480,6 +486,14 @@ Development of the FEBio project is supported in part by a grant from the U.S.
 	filename Figures/NIHlogo.png
 	lyxscale 25
 	special height=0.75in
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Figures/NSF_logo.png
+	lyxscale 10
+	scale 10
 
 \end_inset
 
@@ -518,7 +532,10 @@ name "sec:Elastic-Reaction-Diffusion-Materials"
 \end_layout
 
 \begin_layout Standard
-Elastic reaction-diffusion materials represent a simplification of the biphasic-solute and multiphasic materials,
+This manual details the theory behind the elastic reaction-diffusion solver plugin for FEBio.
+ This document builds on the main FEBio manual (in particular,
+ the multiphasic module).
+ Elastic reaction-diffusion materials represent a simplification of the biphasic-solute and multiphasic materials,
  where there is no explicitly modeled porous media or fluid phase.
  Solid mechanics and chemical reaction-diffusion kinetics are formulated to be nearly independent of each other aside from additional user-defined constitutive relations where implicit feedback between stress/strain and chemical processes are defined.
  This approach is justified when there is a large difference in time scales between displacements associated with solid mechanics and those associated with solute transport and chemical kinetics (a common assumption of kinematic growth theory 
@@ -564,7 +581,7 @@ are tracked only in an intensive sense (i.e.,
  volumetric changes due to strain do not affect the apparent concentration or related parameters).
  This treatment introduces implicit sources of extensive quantities such as mass and energy which either 1) have negligible contributions when volumetric changes occur at a much longer time scale than chemical transport and kinetics,
  and/or 2) may be accounted for by implicit variables.
- Similar reasoning is used to justify the absence of porosity,
+ Similar reasoning is used to justify the removal of porosity,
  hydraulic permeability,
  and fluid pressure (
 \begin_inset Formula $p$
@@ -573,7 +590,8 @@ are tracked only in an intensive sense (i.e.,
 ).
  In the absence of fluid field variables,
  only isotropic diffusivity is introduced for the time being.
- One last distinction from biphasic and multiphasic materials is that standard thermodynamic conditions are assumed throughout the analysis.
+ One last distinction from biphasic and multiphasic materials is that standard thermodynamic conditions are assumed throughout the analysis (i.e.,
+ solutes behave ideally).
  Any deviations from standard conditions may be implicitly accounted for when specifying the average material and constitutive behaviors during an analysis.
  
 \end_layout
@@ -619,15 +637,10 @@ literal "true"
 \end_layout
 
 \begin_layout Standard
-Mixture constituents are classified as components of the solid matrix (
-\begin_inset Formula $\sigma)$
-\end_inset
-
- or a solute (
-\begin_inset Formula $\alpha\in\{1,2,\dots,s\})$
-\end_inset
-
-.
+Chemical species are treated as solutes;
+ that is,
+ they do not contribute directly to the solid matrix properties (as solid bound molecules do in the multiphasic module).
+ Non-diffusing species may be modeled by setting the diffusivity to ~0.
  The motion of the solid matrix is described by the displacement vector 
 \begin_inset Formula $\mathbf{u}$
 \end_inset
@@ -636,7 +649,7 @@ Mixture constituents are classified as components of the solid matrix (
 \begin_inset Formula $c^{\alpha}$
 \end_inset
 
- (unlike prior analyses).
+.
  The solid stress is described by the Cauchy stress tensor 
 \begin_inset Formula $\boldsymbol{\sigma}$
 \end_inset
@@ -644,21 +657,27 @@ Mixture constituents are classified as components of the solid matrix (
 .
  Under the established assumptions,
  it is common to solve the equations of motion associated with the solid mechanics and chemical kinetics separately before superimposing the chemical solution onto the mesh solved by the elastic equations of motion.
- The conservation of mass and linear momentum for the solid reduce to 
+ The conservation of mass and linear momentum for the solid respectively reduce to 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\rho\frac{D\mathbf{v}}{Dt}=\divg\boldsymbol{\sigma}\,.
+\begin{aligned}\frac{D\rho}{Dt} & =\rho\text{div}\mathbf{v},\\
+\rho\frac{D\mathbf{v}}{Dt} & =\text{div}\bm{\sigma}=\bm{0}.
+\end{aligned}
 \end{equation}
 
 \end_inset
 
-Similarly,
- the balance of linear momentum for the solutes is given by 
+The balance of mass and linear momentum for the solutes are given by 
 \begin_inset Formula 
-\begin{equation}
-\begin{aligned}-\rho^{\alpha}\grad\tilde{\mu}^{\alpha}-\mathbf{f}^{\alpha\sigma}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\sigma}\right) & -\mathbf{f}^{\alpha w}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{w}\right)=\mathbf{0}\,,\end{aligned}
-\label{eq109-2}
-\end{equation}
+\[
+\begin{array}{cc}
+\frac{\partial\rho^{\alpha}}{\partial t}+\divg\left(\rho^{\alpha}\mathbf{v}^{\alpha}\right) & =\hat{\rho}^{\alpha}\,,\\
+-\rho^{\alpha}\grad\tilde{\mu}^{\alpha}-\mathbf{f}^{\alpha\sigma}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\sigma}\right)-\mathbf{f}^{\alpha w}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{w}\right) & =\bm{0}\,.
+\end{array}
+\]
 
 \end_inset
 
@@ -693,7 +712,15 @@ where
 \begin_inset Formula $\mathbf{f}^{\alpha w}$
 \end_inset
 
- are the diffusive drag tensor representing momentum exchange via frictional interactions between a given solute and the solid and implicit solvent (
+ are the diffusive drag tensor representing momentum exchange via frictional interactions between a given solute and the solid 
+\begin_inset Formula $\left(\sigma\right)$
+\end_inset
+
+and implicit solvent 
+\begin_inset Formula $\left(w\right)$
+\end_inset
+
+(
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Gu98"
@@ -709,10 +736,6 @@ literal "false"
 The mechano-chemical potential is the sum of the mechanical and chemical potentials.
  The chemical potential 
 \begin_inset Formula $\mu^{\alpha}$
-\end_inset
-
- of 
-\begin_inset Formula $\alpha$
 \end_inset
 
  represents the rate at which the mixture free energy changes with increasing mass of 
@@ -803,7 +826,7 @@ literal "true"
 \end_layout
 
 \begin_layout Standard
-In an elastic solute material,the mechano-electrochemical potential of each solute is simplified from to 
+In an elastic solute material,the mechano-electrochemical potential of each solute is simplified to 
 \begin_inset Formula 
 \begin{equation}
 \tilde{\mu}^{\alpha}=\mu_{0}^{\alpha}\left(\theta\right)+\frac{R\theta}{M^{\alpha}}\left(\ln\frac{c^{\alpha}}{c_{0}^{\alpha}}\right).\label{eq123-1}
@@ -822,10 +845,6 @@ The gradient of the mechano-chemical potential gives
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 For elastic-solute analyses,
  we assume that the fluid convection over the timescale of solid deformation is negligible (i.e.,
  
@@ -846,10 +865,6 @@ For elastic-solute analyses,
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 This expression can be formulated in terms of the solute molar flux 
 \begin_inset Formula $(\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{s}\right))$
 \end_inset
@@ -871,31 +886,6 @@ This expression can be formulated in terms of the solute molar flux
 
 \end_inset
 
-Each constituent of the mixture must satisfy the axiom of mass balance.
- In the absence of chemical reactions the mass balance for constituent 
-\begin_inset Formula $\alpha$
-\end_inset
-
- is 
-\begin_inset Formula 
-\begin{equation}
-\frac{\partial\rho^{\alpha}}{\partial t}+\divg\left(\rho^{\alpha}\mathbf{v}^{\alpha}\right)=0\,.\label{eq125-1}
-\end{equation}
-
-\end_inset
-
-Using the above relations,
- the mass balance relation for the solute may be rewritten as 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\frac{\partial c^{\alpha}}{\partial t}+\divg\mathbf{j}^{\alpha}=0\,.\label{eq126-1}
-\end{equation}
-
-\end_inset
-
 This form of the mass balance for the solute is convenient for a finite element formulation where the mesh is defined on the solid matrix.
 \end_layout
 
@@ -911,25 +901,16 @@ name "sec:Chemical-Reactions"
 \end_layout
 
 \begin_layout Standard
-Chemical reactions may be incorporated into a multiphasic mixture by adding a mass supply term to the equation of mass balance,
- 
-\begin_inset Formula 
-\begin{equation}
-\frac{\partial c^{\alpha}}{\partial t}+\divg\left(\mathbf{j}^{\alpha}\right)=\hat{c}^{\alpha}\,,\label{eq150}
-\end{equation}
-
+Chemical reactions are incorporated into the mixture through the mass supply term 
+\begin_inset Formula $\hat{\rho}^{\alpha}$
 \end_inset
 
-Where 
+ (and thus
 \begin_inset Formula $\hat{c}^{\alpha}$
 \end_inset
 
- is the volume density of mass supply to 
-\begin_inset Formula $\alpha$
-\end_inset
-
- resulting from chemical reactions with all other mixture constituents.
- 
+).
+ This section details the treatment of chemical species and their kinetics.
 \end_layout
 
 \begin_layout Subsection
@@ -944,60 +925,56 @@ name "subsec:Solutes"
 \end_layout
 
 \begin_layout Standard
-Solutes are denoted generically by 
-\begin_inset Formula $\alpha=\iota$
-\end_inset
-
-.
- In chemistry solute content is often represented in units of molar concentration (moles per fluid volume).
+In chemistry,
+ solute content is often represented in units of molar concentration (moles per fluid volume).
  It follows that solute molar concentration 
-\begin_inset Formula $c^{\iota}$
+\begin_inset Formula $c^{\alpha}$
 \end_inset
 
  and molar supply 
-\begin_inset Formula $\hat{c}^{\iota}$
+\begin_inset Formula $\hat{c}^{\alpha}$
 \end_inset
 
  are related to 
-\begin_inset Formula $\rho^{\iota}$
+\begin_inset Formula $\rho^{\alpha}$
 \end_inset
 
  and 
-\begin_inset Formula $\hat{\rho}^{\iota}$
+\begin_inset Formula $\hat{\rho}^{\alpha}$
 \end_inset
 
  via 
 \begin_inset Formula 
 \begin{equation}
-c^{\iota}=\frac{\rho^{\iota}}{M^{\iota}},\quad\hat{c}^{\iota}=\frac{\hat{\rho}^{\iota}}{M^{\iota}}\,.\label{eq159}
+c^{\alpha}=\frac{\rho^{\alpha}}{M^{\alpha}},\quad\hat{c}^{\alpha}=\frac{\hat{\rho}^{\alpha}}{M^{\alpha}}\,.\label{eq159}
 \end{equation}
 
 \end_inset
 
 The molar flux of constituent 
-\begin_inset Formula $\iota$
+\begin_inset Formula $\alpha$
 \end_inset
 
  relative to the solid is given by 
 \begin_inset Formula 
 \begin{equation}
-\mathbf{j}^{\iota}=c^{\iota}\left(\mathbf{v}^{\iota}-\mathbf{v}^{s}\right)\,,\label{eq160}
+\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\alpha}\right)\,,\label{eq160}
 \end{equation}
 
 \end_inset
 
 where it may be noted that 
-\begin_inset Formula $\mathbf{m}^{\iota}=M^{\iota}\mathbf{j}^{\iota}$
+\begin_inset Formula $\mathbf{m}^{\alpha}=M^{\alpha}\mathbf{j}^{\alpha}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Subsection
-Chemical Kinetics
+Mass Action Chemical Kinetics
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Chemical-Kinetics"
+name "subsec:Mass-Action-Kinetics"
 
 \end_inset
 
@@ -1027,16 +1004,11 @@ Productions rates are described by constitutive relations which are functions of
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- and the subset of constituents bound to the solid matrix.
- To maintain a consistent notation in this section,
- solid-bound molecular species are described by their molar concentrations and molar supplies which may be related to their referential mass density and referential mass supply according to 
-\begin_inset Formula 
-\begin{equation}
-c^{\sigma}=\frac{\rho_{r}^{\sigma}}{M^{\sigma}},\quad\hat{c}^{\sigma}=\frac{\hat{\rho}_{r}^{\sigma}}{M^{\sigma}}\,.\label{eq164}
-\end{equation}
+ (which we additionally treat differently here than in the multiphasic module).
+ 
+\end_layout
 
-\end_inset
-
+\begin_layout Standard
 Consider a general chemical reaction,
  
 \begin_inset Formula 
@@ -1067,23 +1039,27 @@ where
  respectively.
  Since the molar supply of reactants and products is constrained by stoichiometry,
  it follows that all molar supplies 
-\begin_inset Formula $\hat{c}^{\alpha}$
+\begin_inset Formula $\hat{c}_{i}^{\alpha}$
 \end_inset
 
- in a specific chemical reaction may be related to a production rate 
-\begin_inset Formula $\hat{\zeta}$
+ due to chemical reactions 
+\begin_inset Formula $i\in r$
+\end_inset
+
+ may be related to production rates 
+\begin_inset Formula $\hat{\zeta}_{i}$
 \end_inset
 
  according to 
 \begin_inset Formula 
 \begin{equation}
-\hat{c}^{\alpha}=\nu^{\alpha}\hat{\zeta}\,,\label{eq166}
+\hat{c}_{i}^{\alpha}=\nu_{i}^{\alpha}\hat{\zeta}_{i}\,,\label{eq166}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\nu^{\alpha}$
+\begin_inset Formula $\nu_{i}^{\alpha}$
 \end_inset
 
  represents the net stoichiometric coefficient for 
@@ -1094,7 +1070,7 @@ where
  
 \begin_inset Formula 
 \begin{equation}
-\nu^{\alpha}=\nu_{P}^{\alpha}-\nu_{R}^{\alpha}\,.\label{eq167}
+\nu_{i}^{\alpha}=\nu_{P,i}^{\alpha}-\nu_{R,i}^{\alpha}\,.\label{eq167}
 \end{equation}
 
 \end_inset
@@ -1105,11 +1081,19 @@ Thus,
 \end_inset
 
  is equivalent to providing a single relation for 
-\begin_inset Formula $\hat{\zeta}\left(\theta,\mathbf{F},c^{\alpha}\right)$
+\begin_inset Formula $\hat{\zeta}_{i}\left(\theta,\mathbf{F},c^{\alpha}\right)$
 \end_inset
 
 .
- When the chemical reaction is reversible,
+ The total molar supply is given by the summation
+\begin_inset Formula 
+\[
+\hat{c}_{i}^{\alpha}=\sum\nu_{i}^{\alpha}\hat{\zeta}_{i}
+\]
+
+\end_inset
+
+When the chemical reaction is reversible,
  
 \begin_inset Formula 
 \begin{equation}
@@ -1135,41 +1119,13 @@ nolink "false"
 \end_inset
 
  still apply but the form of 
-\begin_inset Formula $\hat{\zeta}$
+\begin_inset Formula $\hat{\zeta}_{i}$
 \end_inset
 
  would be different.
-\end_layout
-
-\begin_layout Standard
-Using the relations of Eqs.
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq159"
-nolink "false"
-
-\end_inset
-
-,
- 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq164"
-nolink "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq166"
-nolink "false"
-
-\end_inset
-
-,
+ From the main FEBio theory manual,
  it follows in general that 
-\begin_inset Formula $c^{\alpha}=\nu^{\alpha}\hat{\zeta}$
+\begin_inset Formula $c_{i}^{\alpha}=\nu^{\alpha}\hat{\zeta}_{i}$
 \end_inset
 
 ,
@@ -1178,7 +1134,7 @@ nolink "false"
  
 \begin_inset Formula 
 \begin{equation}
-\sum\limits_{\alpha}\nu^{\alpha}=0\,.\label{eq169}
+\sum\limits_{\alpha}\nu_{i}^{\alpha}=0\,.\label{eq169}
 \end{equation}
 
 \end_inset
@@ -1247,12 +1203,12 @@ concentrations,
 
 ) or rotation.
  Thus,
- most of the cross linearization (i.e.,
- interactions between solid displacements and concentration displacements) are not evaluated unless they depend on an implicitly modeled relationship (
+ unlike the multiphasic module,
+ interactions between solid displacements and concentration displacements (
 \begin_inset Formula $\frac{\partial k}{\partial\mathbf{E}},\hat{\boldsymbol{\zeta}_{\varepsilon}},\mathcal{\boldsymbol{D}}^{\alpha},\frac{\delta c^{\alpha}}{J},\frac{\partial\tilde{\kappa}}{J},\mathbf{j}_{u}^{\prime},$
 \end_inset
 
-etc.).
+etc.) are not evaluated unless otherwise stated.
  The second consequence is that fluid pressure (
 \begin_inset Formula $p,\tilde{p}$
 \end_inset
@@ -1291,9 +1247,9 @@ The virtual work integral simplifies to:
  
 \begin_inset Formula 
 \begin{equation}
-\begin{aligned}\delta W & =\int_{b}\delta\mathbf{v}\cdot\divg\boldsymbol{\sigma}\,dv\\
- & +\sum\limits_{\alpha\ne s,w}\int_{b}\delta c^{\alpha}\left[\frac{D}{Dt}c^{\alpha}+\divg\mathbf{j}^{\alpha}\right]\,dv\\
- & +\delta G\,,
+\begin{aligned}\delta W & =\delta G\\
+ & +\int_{b}\delta\mathbf{v}\cdot\divg\boldsymbol{\sigma}\,dv\\
+ & +\sum\limits_{\alpha}\int_{b}\delta c^{\alpha}\left[\frac{D}{Dt}c^{\alpha}+\divg\mathbf{j}^{\alpha}\right]\,dv\,,
 \end{aligned}
 \end{equation}
 
@@ -1332,7 +1288,15 @@ where
 \end_inset
 
 .
- Applying the divergence theorem,
+ The Gibb's free energy is given by
+\begin_inset Formula 
+\[
+\begin{aligned}\delta G & =\sum_{\alpha}\sum_{i}\int_{b}\delta c^{\alpha}\hat{c}_{i}^{\alpha}\,dv\,.\end{aligned}
+\]
+
+\end_inset
+
+Applying the divergence theorem,
  
 \begin_inset Formula $\delta W$
 \end_inset
@@ -1346,22 +1310,10 @@ where
  where 
 \begin_inset Formula 
 \begin{equation}
-\begin{aligned}\delta W_{\text{int}} & =\int_{b}\boldsymbol{\sigma}:\delta\mathbf{D}\,dv\\
- & +\sum\limits_{\alpha\ne s,w}^{\alpha_{s}}\int_{b}\left[\mathbf{j}^{\alpha}\cdot\grad\delta c^{\alpha}-\delta c^{\alpha}\frac{D}{Dt}c^{\alpha}\right]\,dv\\
- & +\delta G\,,
+\begin{aligned}\delta W_{\text{int}} & =\delta G\\
+ & +\int_{b}\boldsymbol{\sigma}:\delta\mathbf{d}^{s}\,dv\\
+ & +\sum\limits_{\alpha}\int_{b}\left[\mathbf{j}^{\alpha}\cdot\grad\delta c^{\alpha}-\delta c^{\alpha}\frac{D}{Dt}c^{\alpha}\right]\,dv\,,
 \end{aligned}
-\end{equation}
-
-\end_inset
-
-
-\begin_inset Formula $\delta G$
-\end_inset
-
- is given by 
-\begin_inset Formula 
-\begin{equation}
-\begin{aligned}\delta G & =\sum_{\alpha}\sum_{i}\int_{b}\delta c^{\alpha}\hat{c}_{i}^{\alpha}\,dv\,,\end{aligned}
 \end{equation}
 
 \end_inset
@@ -1369,17 +1321,21 @@ where
 and the external work is given by
 \begin_inset Formula 
 \begin{equation}
-\delta W_{\text{ext}}=\int_{\partial b}\left[\delta\mathbf{v}\cdot\mathbf{t}+\sum\limits_{\alpha\ne s,w}\delta c^{\alpha}j_{n}^{\alpha}\right]\,da\,.
+\delta W_{\text{ext}}=\int_{\partial b}\left[\delta\mathbf{v}\cdot\mathbf{t}+\sum\limits\delta c^{\alpha}j_{n}^{\alpha}\right]\,da\,.
 \end{equation}
 
 \end_inset
 
 In these expressions,
  
-\begin_inset Formula $\delta\mathbf{D}=\left(\grad\delta\mathbf{v}+\grad^{T}\delta\mathbf{v}\right)/2$
+\begin_inset Formula $\delta\mathbf{d}^{s}=\left(\grad\delta\mathbf{v}+\grad^{T}\delta\mathbf{v}\right)/2$
 \end_inset
 
-,
+ (not to be confused with diffusivity tensors 
+\begin_inset Formula $\mathbf{d}^{\alpha}$
+\end_inset
+
+),
  
 \begin_inset Formula $\partial b$
 \end_inset
@@ -1446,6 +1402,14 @@ name "subsec:ERD-linearization-du"
 \end_layout
 
 \begin_layout Standard
+Linearization of the elastic reaction-diffusion module is symbolically given by 
+\begin_inset Formula 
+\[
+\delta W+D\delta W\left[\Delta\mathbf{u}\right]+\sum_{\alpha}D\delta W\left[\Delta c^{\alpha}\right]\approx0\,.
+\]
+
+\end_inset
+
 The linearization of the first term in 
 \begin_inset Formula $\delta W_{\text{int}}$
 \end_inset
@@ -1457,7 +1421,7 @@ The linearization of the first term in
  yields 
 \begin_inset Formula 
 \begin{equation}
-D\left(\mathbf{S}:\delta\mathbf{\dot{E}}\right)\left[\Delta\mathbf{u}\right]\,dV=\left[\delta\mathbf{d}^{s}:\boldsymbol{\mathcal{C}}:\Delta\boldsymbol{\varepsilon}+\boldsymbol{\sigma}:\left(\grad^{T}\Delta\mathbf{u}\cdot\grad\delta\mathbf{v}\right)\right]\,dv\,,
+D\left(\mathbf{S}:\delta\mathbf{\dot{E}}\right)\left[\Delta\mathbf{u}\right]\,dV=\left[\delta\mathbf{d}^{s}:\boldsymbol{\mathcal{C}}:\Delta\bm{\varepsilon}+\boldsymbol{\sigma}:\left(\grad^{T}\Delta\mathbf{u}\cdot\grad\delta\mathbf{v}\right)\right]\,dv\,,
 \end{equation}
 
 \end_inset
@@ -1513,7 +1477,7 @@ where
 \begin_inset Formula $\mathbb{L}^{e}$
 \end_inset
 
-is the elasticity tensor that arises due to elastic deformation when observed from the intermediate configuration:
+is the elasticity tensor that arises due to elastic deformation when observed from the stress-free intermediate configuration:
 \end_layout
 
 \begin_layout Standard
@@ -1540,15 +1504,120 @@ literal "false"
 
 \end_inset
 
-Currently,
- stress- and strain-dependent growth are not implemented in FEBio,
- so the first partial derivative above evaluates to the 4th order 
-\begin_inset Formula $0$
+The first term is given by
+\begin_inset Formula 
+\[
+\frac{\partial\mathbf{S}}{\partial\mathbf{F}^{g}}=\mathbf{S}\otimes\mathbf{F}^{g-T}-\left[\mathbf{F}^{g-1}\oslash\mathbf{S}+\mathbf{S}\obslash\mathbf{F}^{g-1}\right]-J^{g}\left[\mathbf{F}^{g-1}\oslash\mathbf{F}^{g-1}\right]:\frac{1}{2}\mathbb{L}^{e}:\left[\mathbf{F}^{g-T}\obslash\mathbf{C}^{e}+\mathbf{C}^{e}\oslash\mathbf{F}^{g-T}\right]\,.
+\]
+
 \end_inset
 
- tensor.
- Consequently there is no contribution of the growth tensor to the elasticity tensor.
- The spatial elasticity tensor is thus simplified as 
+The second term is given by
+\begin_inset Formula 
+\[
+\frac{\partial\mathbf{F}^{g}}{\partial\vartheta}=\begin{cases}
+\mathbf{n}^{\parallel}\otimes\mathbf{n}^{\parallel} & \text{line-type growth}\\
+\frac{1}{2\sqrt{\vartheta}}\left[\mathbf{I}-\mathbf{n}^{\perp}\otimes\mathbf{n}^{\perp}\right] & \text{area-type growth}
+\end{cases}\,.
+\]
+
+\end_inset
+
+The third term requires evaluating the residual 
+\begin_inset Formula $R$
+\end_inset
+
+ and its tangent 
+\begin_inset Formula $K$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+R=\vartheta-\vartheta_{n}-\dot{\vartheta}\Delta t\,,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+K=\frac{\partial R}{\partial\vartheta}=1-\Delta t\frac{\partial\dot{\vartheta}}{\partial\vartheta}\,,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\dot{\vartheta}}{\partial\vartheta}=\phi(\dot{c}^{\alpha})\frac{\partial k(\vartheta)}{\partial\vartheta}+k(\vartheta)\frac{\partial\phi(\dot{c}^{\alpha})}{\partial\vartheta}\,.
+\]
+
+\end_inset
+
+The function 
+\begin_inset Formula $\phi\left(\dot{c}^{\alpha}\right)$
+\end_inset
+
+is independent of 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+.
+ Thus:
+\begin_inset Formula 
+\[
+K=1-\Delta t\phi\left(\dot{c}^{\alpha}\right)\frac{\partial k(\vartheta)}{\partial\vartheta}\,.
+\]
+
+\end_inset
+
+The residual is evaluated w.r.t.
+ 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ and rearranged to solve for 
+\begin_inset Formula $\frac{\partial\vartheta}{\partial\mathbf{C}}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\frac{\partial R}{\partial\mathbf{C}}=\frac{\partial\vartheta}{\partial\mathbf{C}}-\frac{\partial\dot{\vartheta}}{\partial\mathbf{C}}\Delta t=\mathbf{0}\,,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\vartheta}{\partial\mathbf{C}}=\frac{\partial\dot{\vartheta}}{\partial\mathbf{C}}\Delta t=\left[\phi\left(\dot{c}^{\alpha}\right)\frac{\partial k(\vartheta)}{\partial\vartheta}\frac{\partial\vartheta}{\partial\mathbf{C}}+k(\vartheta)\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}}\frac{\partial\dot{c}^{\alpha}}{\partial\mathbf{C}}\right]\Delta t\,,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\vartheta}{\partial\mathbf{C}}=\frac{k(\vartheta)\Delta t}{K}\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}}\frac{\partial\dot{c}^{\alpha}}{\partial\mathbf{C}}\,.
+\]
+
+\end_inset
+
+Here,
+ we define the terms
+\begin_inset Formula 
+\[
+\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}}=\begin{cases}
+\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}} & \text{\ensuremath{\alpha=}growth species}\\
+0 & \alpha\neq\text{growth species}
+\end{cases}
+\]
+
+\end_inset
+
+
 \begin_inset Formula 
 \begin{equation}
 \boldsymbol{\mathcal{C}}=\boldsymbol{\mathcal{C}}^{e}=J^{-1}\left(\mathbf{F}\oslash\mathbf{F}\right):2\frac{\partial\mathbf{S}}{\partial\mathbf{C}}:\left(\mathbf{F}^{T}\oslash\mathbf{F}^{T}\right)\,.\label{eq294-1}
@@ -5565,7 +5634,7 @@ Earlier we saw that the dyadic product of vectors can produce tensors.
 \begin_inset Formula $\mathbf{B}$
 \end_inset
 
- produce fouth-order tensors,
+ produce fourth-order tensors,
  satisfying
 \begin_inset Formula 
 \begin{equation}
