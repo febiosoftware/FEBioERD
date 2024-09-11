@@ -192,7 +192,7 @@ status open
 
 
 \series default
-Theory Manual Version 4.5 
+Elastic Reaction-Diffusion Solver Theory Manual Version 4.5 
 \end_layout
 
 \begin_layout Date
@@ -658,25 +658,40 @@ Chemical species are treated as solutes;
  Under the established assumptions,
  it is common to solve the equations of motion associated with the solid mechanics and chemical kinetics separately before superimposing the chemical solution onto the mesh solved by the elastic equations of motion.
  The conservation of mass and linear momentum for the solid respectively reduce to 
+\begin_inset Formula 
+\[
+\frac{D\rho}{Dt}=\rho\text{div}\mathbf{v},
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{equation}
-\begin{aligned}\frac{D\rho}{Dt} & =\rho\text{div}\mathbf{v},\\
-\rho\frac{D\mathbf{v}}{Dt} & =\text{div}\bm{\sigma}=\bm{0}.
-\end{aligned}
-\end{equation}
+\[
+\rho\frac{D\mathbf{v}}{Dt}=\text{div}\bm{\sigma}=\bm{0}.
+\]
 
 \end_inset
 
-The balance of mass and linear momentum for the solutes are given by 
+The balance of mass and linear momentum for a solute 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is given by 
 \begin_inset Formula 
 \[
-\begin{array}{cc}
-\frac{\partial\rho^{\alpha}}{\partial t}+\divg\left(\rho^{\alpha}\mathbf{v}^{\alpha}\right) & =\hat{\rho}^{\alpha}\,,\\
--\rho^{\alpha}\grad\tilde{\mu}^{\alpha}-\mathbf{f}^{\alpha\sigma}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\sigma}\right)-\mathbf{f}^{\alpha w}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{w}\right) & =\bm{0}\,.
-\end{array}
+\frac{\partial\rho^{\alpha}}{\partial t}+\divg\left(\rho^{\alpha}\mathbf{v}^{\alpha}\right)=\hat{\rho}^{\alpha}\,,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+-\rho^{\alpha}\grad\tilde{\mu}^{\alpha}-\mathbf{f}^{\alpha\sigma}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\sigma}\right)-\mathbf{f}^{\alpha w}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{w}\right)=\bm{0}\,.
 \]
 
 \end_inset
@@ -699,11 +714,7 @@ where
 \begin_inset Formula $\mathbf{v}^{\alpha}$
 \end_inset
 
- is the velocity of constituent 
-\begin_inset Formula $\alpha$
-\end_inset
-
-,
+ is the velocity,
  and 
 \begin_inset Formula $\mathbf{f}^{\alpha w}$
 \end_inset
@@ -729,7 +740,7 @@ literal "false"
 \end_inset
 
 ).
- 
+ We assume that diffusive drag terms between solutes are negligible.
 \end_layout
 
 \begin_layout Standard
@@ -866,11 +877,11 @@ For elastic-solute analyses,
 \end_inset
 
 This expression can be formulated in terms of the solute molar flux 
-\begin_inset Formula $(\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{s}\right))$
+\begin_inset Formula $\left(\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\sigma}\right)\right)$
 \end_inset
 
  and the effective diffusivity 
-\begin_inset Formula $\mathbf{d}^{\alpha}=R\theta c^{\alpha}(\mathbf{f}^{\alpha\sigma}+\mathbf{f}^{\alpha w})^{-1}$
+\begin_inset Formula $\mathbf{d}^{\alpha}=R\theta c^{\alpha}\left(\mathbf{f}^{\alpha\sigma}+\mathbf{f}^{\alpha w}\right)^{-1}$
 \end_inset
 
 .
@@ -958,16 +969,12 @@ The molar flux of constituent
  relative to the solid is given by 
 \begin_inset Formula 
 \begin{equation}
-\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\alpha}\right)\,,\label{eq160}
+\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\alpha}\right)\,.\label{eq160}
 \end{equation}
 
 \end_inset
 
-where it may be noted that 
-\begin_inset Formula $\mathbf{m}^{\alpha}=M^{\alpha}\mathbf{j}^{\alpha}$
-\end_inset
 
-.
 \end_layout
 
 \begin_layout Subsection
@@ -1004,7 +1011,7 @@ Productions rates are described by constitutive relations which are functions of
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- (which we additionally treat differently here than in the multiphasic module).
+ (of which we treat differently here than in the multiphasic module).
  
 \end_layout
 
@@ -1066,7 +1073,7 @@ where
 \begin_inset Formula $\mathcal{E}^{\alpha}$
 \end_inset
 
-,
+:
  
 \begin_inset Formula 
 \begin{equation}
@@ -1143,7 +1150,7 @@ nolink "false"
 \end_layout
 
 \begin_layout Chapter
-The Nonlinear FE Method
+Linearization and Discretization of the Nonlinear FE Method
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Nonlinear-FE-Method"
@@ -1154,8 +1161,18 @@ name "chap:Nonlinear-FE-Method"
 \end_layout
 
 \begin_layout Standard
-This chapter discusses the basic principles of the nonlinear finite element method.
- The chapter begins with a short introduction to the weak formulation and the principle of virtual work.
+The chapter begins with a short introduction to the weak formulation for the physics described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:continuum-mechanics"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+.
  Next,
  the important concept of linearization is discussed and applied to the principle of virtual work.
  Finally the Newton-Raphson procedure and its application to the nonlinear finite element method are described.
@@ -1204,37 +1221,35 @@ concentrations,
 ) or rotation.
  Thus,
  unlike the multiphasic module,
- interactions between solid displacements and concentration displacements (
-\begin_inset Formula $\frac{\partial k}{\partial\mathbf{E}},\hat{\boldsymbol{\zeta}_{\varepsilon}},\mathcal{\boldsymbol{D}}^{\alpha},\frac{\delta c^{\alpha}}{J},\frac{\partial\tilde{\kappa}}{J},\mathbf{j}_{u}^{\prime},$
+ interactions between solid displacements and concentration displacements 
+\begin_inset Formula $\left(\frac{\partial k}{\partial\mathbf{E}},\hat{\boldsymbol{\zeta}_{\varepsilon}},\mathcal{\boldsymbol{D}}^{\alpha},\frac{\delta c^{\alpha}}{J},\frac{\partial\tilde{\kappa}}{J},\mathbf{j}_{u}^{\prime},\text{etc.}\right)$
 \end_inset
 
-etc.) are not evaluated unless otherwise stated.
- The second consequence is that fluid pressure (
-\begin_inset Formula $p,\tilde{p}$
+ are not evaluated unless otherwise stated.
+ The second consequence is that fluid pressure 
+\begin_inset Formula $\left(p,\tilde{p}\right)$
 \end_inset
 
-) and solute convection are assumed to be negligible (as are 
-\begin_inset Formula $\mathcal{\boldsymbol{\mathcal{K}}},\tilde{\boldsymbol{\mathcal{K}}},\tilde{\mathbf{k}}_{c}^{\prime},\frac{\partial\tilde{\mathcal{K}}}{\partial c^{\alpha}},\mathbf{w}_{u}^{\prime},\mathbf{w}_{c}^{\prime}$
+ and solute convection are assumed to be negligible 
+\begin_inset Formula $\left(\text{as are}\mathcal{\boldsymbol{\mathcal{K}}},\tilde{\boldsymbol{\mathcal{K}}},\tilde{\mathbf{k}}_{c}^{\prime},\frac{\partial\tilde{\mathcal{K}}}{\partial c^{\alpha}},\mathbf{w}_{u}^{\prime},\mathbf{w}_{c}^{\prime}\right)$
 \end_inset
 
-).
+.
  Finally,
  standard thermodynamic conditions are assumed throughout the analysis such that the activity coefficient,
  effective solubility,
  partition coefficient,
  osmotic coefficient,
- and diffusivities are constant (i.e.,
- 
-\begin_inset Formula $\gamma^{\alpha},\hat{\kappa}^{\alpha},\tilde{\kappa}^{\alpha}=1,\,\Phi=0,\,\frac{\partial\mathbf{d}^{\alpha}}{\partial\tilde{c}^{\gamma}},\frac{\partial\mathbf{d}^{\alpha}}{\partial\tilde{\kappa}^{\gamma}},\mathbf{d}_{c}^{\prime},\frac{\partial d_{0}}{\partial\tilde{}}=\boldsymbol{0}$
+ and diffusivities are constant 
+\begin_inset Formula $\left(\text{i.e.,}\gamma^{\alpha},\hat{\kappa}^{\alpha},\tilde{\kappa}^{\alpha}=1,\,\Phi=0,\,\frac{\partial\mathbf{d}^{\alpha}}{\partial\tilde{c}^{\gamma}},\frac{\partial\mathbf{d}^{\alpha}}{\partial\tilde{\kappa}^{\gamma}},\mathbf{d}_{c}^{\prime},\frac{\partial d_{0}}{\partial\tilde{}}=\boldsymbol{0}\right)$
 \end_inset
 
-).
- We leave the possibility that the stress/strain and solute concentrations may contain interaction terms (e.g.,
- 
-\begin_inset Formula $\boldsymbol{\sigma}_{c}^{\prime},\frac{\partial\mathbf{S}}{\partial c},\frac{\partial c}{\partial\boldsymbol{\sigma}},\frac{\partial k}{\partial\mathbf{E}},\hat{\boldsymbol{\zeta}_{\varepsilon}}$
+.
+ We leave the possibility that the stress/strain and solute concentrations may contain interaction terms 
+\begin_inset Formula $\left(\text{e.g.,}\boldsymbol{\sigma}_{c}^{\prime},\frac{\partial\mathbf{S}}{\partial c},\frac{\partial c}{\partial\boldsymbol{\sigma}},\frac{\partial k}{\partial\mathbf{E}},\hat{\boldsymbol{\zeta}_{\varepsilon}}\right)$
 \end_inset
 
- may be non-zero under certain kinematic growth relations).
+ may be non-zero under certain kinematic growth relations.
  This analysis should not be used if modeling electrochemistry or short-time mechano-chemical phenomena are desired (e.g.
  osmotic pressure,
  non-negligible solute volume fractions,
@@ -1468,7 +1483,7 @@ The elastic contribution is given by
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\mathbb{C}^{e}=2\frac{\partial\mathbf{S}(\mathbf{F},\mathbf{F}^{g})}{\partial\mathbf{C}}\Biggr|_{\mathbf{F}^{g}}=J^{g}\left[\mathbf{F}^{g-1}\oslash\mathbf{F}^{g-1}\right]:\mathbb{L}^{e}:\left[\mathbf{F}^{g-T}\oslash\mathbf{F}^{g-T}\right]=J^{g}\mathbb{L}_{ABCD}^{e}F_{iA}^{g-1}F_{jB}^{g-1}F_{kC}^{g-1}F_{lD}^{g-1}
+\mathbb{C}^{e}=2\frac{\partial\mathbf{S}(\mathbf{F},\mathbf{F}^{g})}{\partial\mathbf{C}}\Biggr|_{\mathbf{F}^{g}}=J^{g}\left[\mathbf{F}^{g-1}\oslash\mathbf{F}^{g-1}\right]:\mathbb{L}^{e}:\left[\mathbf{F}^{g-T}\oslash\mathbf{F}^{g-T}\right]=J^{g}\mathbb{L}_{ABCD}^{e}F_{iA}^{g-1}F_{jB}^{g-1}F_{kC}^{g-1}F_{lD}^{g-1}\,,
 \]
 
 \end_inset
@@ -1477,7 +1492,7 @@ where
 \begin_inset Formula $\mathbb{L}^{e}$
 \end_inset
 
-is the elasticity tensor that arises due to elastic deformation when observed from the stress-free intermediate configuration:
+is the elasticity tensor that arises due to elastic deformation when observed from the stress-free intermediate configuration given by:
 \end_layout
 
 \begin_layout Standard
@@ -1523,7 +1538,16 @@ The second term is given by
 
 \end_inset
 
-The third term requires evaluating the residual 
+The third term involves evaluating the growth scalar 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+.
+ Often the evolution of the growth scalar is constitutively 
+\begin_inset Formula $\dot{\vartheta}=d\vartheta/dt$
+\end_inset
+
+is often formulated is often formulated requires evaluating the residual 
 \begin_inset Formula $R$
 \end_inset
 
