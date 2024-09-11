@@ -1644,15 +1644,30 @@ Here,
 
 \begin_inset Formula 
 \[
-\hat{\bm{\zeta}}_{\varepsilon,i}^{\alpha}=\frac{\partial\hat{\zeta}_{i}}{\partial\bm{\varepsilon}}=\begin{cases}
+\hat{\bm{\zeta}}_{\varepsilon,i}^{\alpha}=\begin{cases}
 \bm{0} & \text{Morphoelastic growth}\\
-\frac{\partial\hat{\zeta}_{i}}{\partial\tr\left(\bm{\sigma}\right)} & \text{Mechanosensitive growth}
+\frac{\partial\hat{\zeta}_{i}}{\partial\bm{\varepsilon}} & \text{Mechanosensitive growth}
 \end{cases}\,.
 \]
 
 \end_inset
 
+The linearized molar production terms 
+\begin_inset Formula $\left(\partial\hat{\zeta}_{i}/\partial\bm{\varepsilon}\right)$
+\end_inset
 
+for each reaction type are detailed further in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:ERD-chemical-reactions"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2310,127 +2325,64 @@ Virtual Work and Linearization
 
 \begin_layout Standard
 Due to the simplifications of the elastic-solute analysis,
- the following reaction terms are considered negligible:
+ the following reaction terms needed for standard multiphasic analyses are considered negligible here:
  
-\begin_inset Formula $k_{f},k_{r},\hat{\zeta},\hat{\boldsymbol{\zeta}}_{\varepsilon},\mathcal{\bar{V}},\hat{\varphi}^{w},\boldsymbol{\hat{\varphi}}_{\varepsilon}^{w},\frac{\partial\hat{\varphi}^{w}}{\partial\tilde{p}},\frac{\partial\hat{\varphi}^{w}}{\partial\tilde{c}^{\iota}},\frac{\partial\varphi_{r}^{s}}{\partial J},\frac{\partial\varphi_{r}^{s}}{\partial\tilde{c}^{\iota}}$
+\begin_inset Formula $\mathcal{\bar{V}},\hat{\varphi}^{w},\boldsymbol{\hat{\varphi}}_{\varepsilon}^{w},\frac{\partial\hat{\varphi}^{w}}{\partial\tilde{p}},\frac{\partial\hat{\varphi}^{w}}{\partial\tilde{c}^{\iota}},\frac{\partial\varphi_{r}^{s}}{\partial J},\frac{\partial\varphi_{r}^{s}}{\partial\tilde{c}^{\iota}}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
-The contribution to 
-\begin_inset Formula $\delta W$
+The linearization of molar production rates w.r.t.
+ strain are generally the 2nd order 
+\begin_inset Formula $\bm{0}$
 \end_inset
 
- due to chemical reactions is given by 
-\begin_inset Formula $\delta G$
-\end_inset
-
- (with summation over each species 
-\begin_inset Formula $\iota$
-\end_inset
-
- and each reaction 
-\begin_inset Formula $r$
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-\delta G=\sum\limits_{\alpha}\sum_{i}\int_{b}\delta c^{\alpha}\hat{c}_{i}\,dv\,.
-\end{equation}
-
-\end_inset
-
-The linearization of 
-\begin_inset Formula $\delta G$
-\end_inset
-
- along a solid displacement increment 
-\begin_inset Formula $\Delta\mathbf{u}$
-\end_inset
-
- is zero unless there is either a stress- or strain- dependent relationship (as may be the case for kinematic growth models):
-\begin_inset Formula 
-\begin{equation}
-\begin{aligned}D\delta G\left[\Delta\mathbf{u}\right] & =0\end{aligned}
-\,.
-\end{equation}
-
-\end_inset
-
-For the case of stress-dependent concentration kinetics we have
+tensor.
+ In the case of implicitly assumed mechanosensitivity of cellular reactions the term is given by:
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\begin{aligned}D\delta G\left[\Delta\mathbf{u}\right] & =\sum_{r}\sum_{\iota}\nu_{r}^{\iota}\int_{b}\delta c^{\alpha}\left[\hat{c}_{i}^{\alpha}\,\divg\Delta\mathbf{u}+\hat{\boldsymbol{\zeta}}_{\varepsilon,i}:\Delta\boldsymbol{\varepsilon}\right]\,dv\end{aligned}
-\,,
+\hat{\boldsymbol{\zeta}}_{\varepsilon,i}=\frac{\partial\hat{\zeta}_{i}}{\partial\bm{\varepsilon}}=\frac{\partial\hat{\zeta}_{i}}{\partial k_{F}\left(\bm{\sigma}\right)}\frac{\partial k_{F}\left(\bm{\sigma}\right)}{\partial\bm{\sigma}}:\bm{\mathcal{C}}^{e}\,.
 \]
 
 \end_inset
 
-where 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\hat{\boldsymbol{\zeta}}_{\varepsilon,r}=J^{-1}\mathbf{F}\cdot\frac{\partial\hat{\zeta}_{r}}{\partial\mathbf{E}}\cdot\mathbf{F}^{T}=\frac{\partial\hat{\zeta}_{r}}{\partial\mathbf{e}}\,,
-\]
-
+For mass action forward reactions where the reaction rate is proportional to the trace of stress as bounded by a sigmoidal function 
+\begin_inset Formula $s(\bm{\sigma})$
 \end_inset
 
-is the tangent of the reaction rate to the strain which is dependent on the specific reaction.
- This tangent is zero unless there is a stress- or strain-dependent relationship.
- For stress-dependent kinetics the tangent becomes
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\hat{\boldsymbol{\zeta}}_{\varepsilon,r}=\frac{\partial\hat{\zeta}_{r}}{\partial\boldsymbol{\sigma}}:\boldsymbol{\mathcal{C}}\,,
-\]
-
-\end_inset
-
-where the specific reaction kinetics dictate 
-\begin_inset Formula $\partial\hat{\zeta}_{r}/\partial\boldsymbol{\sigma}$
-\end_inset
-
-.
- For mass action forward reactions where the reaction rate is proportional to the trace of stress as bounded by a sigmoidal function,
+,
  i.e.,
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\hat{\zeta}_{r}(\boldsymbol{\sigma})=k_{F}(1+\frac{a}{1+\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)}\,,
+\hat{\zeta}_{r}(\boldsymbol{\sigma})=k_{F}s(\bm{\sigma})=k_{F}\left(a_{0}+\frac{a}{1+\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)}\right)\,,
 \]
 
 \end_inset
 
-the tangent is
+which may be evaluated with
+\begin_inset Formula 
+\[
+\frac{\partial\hat{\zeta}_{r}}{\partial k(\bm{\sigma})}=s(\bm{\sigma})\,,
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\partial\hat{\zeta}_{r}}{\partial\boldsymbol{\sigma}}=\frac{\partial\hat{\zeta}_{r}}{\partial\tr\left(\boldsymbol{\sigma}\right)}\cdot\frac{\partial\tr\left(\boldsymbol{\sigma}\right)}{\partial\boldsymbol{\sigma}}\,,
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\partial\hat{\zeta}_{r}}{\partial\tr\left(\boldsymbol{\sigma}\right)}=\frac{a\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)}{b\left(1+\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)\right)^{2}}\,,
+\frac{\partial k(\bm{\sigma})}{\partial\tr\left(\boldsymbol{\sigma}\right)}=\frac{a\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)}{b\left(1+\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)\right)^{2}}\,,
 \]
 
 \end_inset
