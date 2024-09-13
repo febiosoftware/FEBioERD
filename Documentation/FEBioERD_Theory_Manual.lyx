@@ -1,0 +1,3350 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extbook
+\begin_preamble
+\usepackage{hyperref}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+eqs-within-sections
+figs-within-sections
+\end_modules
+\maintain_unincluded_children no
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "helvet" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family sfdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement class
+\float_alignment class
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 2
+\use_package esint 2
+\use_package mathdots 2
+\use_package mathtools 2
+\use_package mhchem 2
+\use_package stackrel 2
+\use_package stmaryrd 2
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type numerical
+\biblio_style plainnat
+\biblio_options sort&compress
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\spellchecker_ignore english eq
+\spellchecker_ignore english Eqs
+\spellchecker_ignore english th
+\spellchecker_ignore english MRL
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\Dev}{\operatorname{Dev}}
+{\text{Dev}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\dev}{\operatorname{dev}}
+{\text{dev}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\grad}{\operatorname{grad}}
+{\text{grad}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\Grad}{\operatorname{Grad}}
+{\text{Grad}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\divg}{\operatorname{div}}
+{\text{div}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\Ei}{\operatorname{Ei}}
+{\text{Ei}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\tr}{\operatorname{tr}}
+{\text{tr}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\Divg}{\operatorname{Div}}
+{\text{Div}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\cay}{\operatorname{cay}}
+{\text{cay}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\rot}{\operatorname{rot}}
+{\text{rot}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset Graphics
+	filename Figures/FigFEBioTitle.png
+	width 4.88in
+
+\end_inset
+
+
+\series bold
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\series default
+Elastic Reaction-Diffusion Solver Theory Manual Version 1.0 
+\end_layout
+
+\begin_layout Date
+Last Updated:
+ 
+\begin_inset Info
+type  "moddate"
+arg   "loclong"
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Contributors
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Steven LaBelle(
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{mailto:steven.labelle@utah.edu}{steven.labelle@utah.edu}
+\end_layout
+
+\end_inset
+
+)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+Steve Maas (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{mailto:steve.maas@utah.edu}{steve.maas@utah.edu}
+\end_layout
+
+\end_inset
+
+)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+Dr.
+ Jeffrey Weiss (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{mailto:jeff.weiss@utah.edu}{jeff.weiss@utah.edu}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Paragraph*
+Contact address
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Musculoskeletal Research Laboratories,
+ University of Utah
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+72 S.
+ Central Campus Drive,
+ Room 2646
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+Salt Lake City,
+ Utah
+\end_layout
+
+\begin_layout Paragraph*
+Website
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+MRL:
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{http://mrl.sci.utah.edu}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+FEBio:
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{http://febio.org}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Forum
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{https://forums.febio.org/index.php}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Acknowledgments
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Development of the FEBio project is supported in part by a grant from the U.S.
+ National Institutes of Health (R01GM083925) and NSF (
+\nospellcheck on
+OAC
+\nospellcheck default
+ Award No.
+ 2246911).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Figures/NIHlogo.png
+	lyxscale 25
+	special height=0.75in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Figures/NSF_logo.png
+	lyxscale 15
+	scale 2
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Continuum Mechanics of Elastic Reaction-Diffusion Analyses
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:continuum-mechanics"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:intro"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This document details the theoretical background for the elastic reaction-diffusion solver plugin in FEBio.
+ This plugin was developed to simplify aspects of the biphasic,
+ triphasic,
+ and multiphasic solvers in FEBio.
+ The plugin was specifically motivated to model kinematic growth where growth is driven by the production of chemical species.
+\end_layout
+
+\begin_layout Standard
+Chapter 1 details the theoretical background,
+ assumptions,
+ and governing equations for the physics solved by this plugin.
+ Chapter 2 details the linearization and discretization of the governing equations for implementation in finite element code.
+ An appendix is included that details mathematical prerequisites for the tensor algebra and calculus.
+\end_layout
+
+\begin_layout Section
+Elastic Reaction-Diffusion Analyses
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:erd-analyses"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This manual details the theory behind the elastic reaction-diffusion solver plugin for FEBio.
+ This document builds on the main FEBio manual (in particular,
+ the multiphasic module).
+ Elastic reaction-diffusion materials represent a simplification of the biphasic-solute and multiphasic materials,
+ where there is no explicitly modeled porous media or fluid phase.
+ Solid mechanics and chemical reaction-diffusion kinetics are formulated to be nearly independent of each other aside from additional user-defined constitutive relations where implicit feedback between stress/strain and chemical processes are defined.
+ This approach is justified when there is a large difference in time scales between displacements associated with solid mechanics and those associated with solute transport and chemical kinetics (a common assumption of kinematic growth theory 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ateshian2024"
+literal "false"
+
+\end_inset
+
+).
+ Additionally,
+ this approach introduces the assumption that the entire solid mass may turn over at each new time step,
+ resulting in a new reference configuration defined by new extensive material properties (volume,
+ shape,
+ etc.) but constant intensive material properties (solid density,
+ solute concentration and diffusivity,
+ etc.).
+ 
+\end_layout
+
+\begin_layout Standard
+Elastic reaction-diffusion analyses deviate from biphasic-solute and multiphasic analyses by assuming that solute concentrations 
+\begin_inset Formula $c^{\alpha}$
+\end_inset
+
+,
+ fluxes 
+\begin_inset Formula $\mathbf{j}^{\alpha}$
+\end_inset
+
+,
+ diffusivities 
+\begin_inset Formula $\mathbf{d}^{\alpha}$
+\end_inset
+
+,
+ and kinetic parameters 
+\begin_inset Formula $k_{f},k_{r},\hat{\zeta}$
+\end_inset
+
+ are tracked only in an intensive sense (i.e.,
+ volumetric changes due to strain do not affect the apparent concentration or related parameters).
+ This treatment introduces implicit sources of extensive quantities such as mass and energy which either 1) have negligible contributions when volumetric changes occur at a much longer time scale than chemical transport and kinetics,
+ and/or 2) may be accounted for by implicit variables.
+ Similar reasoning is used to justify the removal of porosity,
+ hydraulic permeability,
+ and fluid pressure (
+\begin_inset Formula $p$
+\end_inset
+
+).
+ In the absence of fluid field variables,
+ only isotropic diffusivity is introduced for the time being.
+ One last distinction from biphasic and multiphasic materials is that standard thermodynamic conditions are assumed throughout the analysis (i.e.,
+ solutes behave ideally).
+ Any deviations from standard conditions may be implicitly accounted for when specifying the average material and constitutive behaviors during an analysis.
+ Charged species are similarly not accounted for in this framework.
+\end_layout
+
+\begin_layout Standard
+This analysis should not be used when modeling electrochemistry or short-time mechano-chemical phenomena (e.g.
+ osmotic pressure,
+ non-negligible solute volume fractions,
+ convection).
+ The user is responsible for ensuring that these assumptions are appropriate for a given problem.
+\end_layout
+
+\begin_layout Subsection
+Governing Equations
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:erd-gov-eq"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The governing equations adopted in this finite element implementation of neutral solute transport in porous media are based on the framework of mixture theory 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Truesdell60,Bowen76"
+literal "true"
+
+\end_inset
+
+.
+ The fundamental modeling assumptions adopted in this treatment are quasi-static conditions for momentum balance (negligible effects of inertia),
+ intrinsic incompressibility of all constituents (invariant true densities),
+ isothermal conditions,
+ negligible volume fraction of solute relative to the solid and solvent,
+ and negligible effects of solute viscosities (friction between similar and dissimilar solutes) relative to frictional interactions between solutes and the solid matrix.
+ These assumptions are often made in studies of biological tissues and cells with the additional simplification that frictional interactions do not arise between the solutes and the solvent (in contrast to biphasic,
+ biphasic-solute,
+ triphasic,
+ and multiphasic material formulations).
+\end_layout
+
+\begin_layout Standard
+Chemical species are treated as solutes that do not contribute directly to the solid matrix properties (as solid bound molecules do in the multiphasic module).
+ Non-diffusing species may be modeled by setting the diffusivity 
+\begin_inset Formula $\mathbf{d}^{\alpha}\approx\bm{0}$
+\end_inset
+
+ (as of now,
+ numerical errors emerge when setting 0 diffusivity so low values are recommended instead).
+ The motion of the solid matrix is described by the displacement vector 
+\begin_inset Formula $\mathbf{u}$
+\end_inset
+
+ while solute concentrations are described by 
+\begin_inset Formula $c^{\alpha}$
+\end_inset
+
+.
+ The solid stress is described by the Cauchy stress tensor 
+\begin_inset Formula $\boldsymbol{\sigma}$
+\end_inset
+
+.
+ Under the established assumptions,
+ it is common to solve the equations of motion associated with the solid mechanics and chemical kinetics separately before superimposing the chemical solution onto the mesh solved by the elastic equations of motion.
+ The conservation of mass and linear momentum for the solid respectively reduce to 
+\begin_inset Formula 
+\begin{equation}
+\frac{D\rho}{Dt}=\rho\divg\mathbf{v},
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\rho\frac{D\mathbf{v}}{Dt}=\divg\bm{\sigma}=\bm{0}.
+\end{equation}
+
+\end_inset
+
+The balance of mass and linear momentum for a solute 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is given by 
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\rho^{\alpha}}{\partial t}+\divg\left(\rho^{\alpha}\mathbf{v}^{\alpha}\right)=\hat{\rho}^{\alpha}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+-\rho^{\alpha}\grad\tilde{\mu}^{\alpha}-\mathbf{f}^{\alpha\sigma}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\sigma}\right)-\mathbf{f}^{\alpha w}\cdot\left(\mathbf{v}^{\alpha}-\mathbf{v}^{w}\right)=\bm{0}\,.
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\rho^{\alpha}=M^{\alpha}c^{\alpha}$
+\end_inset
+
+ is the density,
+ 
+\begin_inset Formula $M^{\alpha}$
+\end_inset
+
+ is the (invariant) molecular weight,
+ 
+\begin_inset Formula $\tilde{\mu}^{\alpha}$
+\end_inset
+
+ is the mechano-chemical potential,
+\begin_inset Formula $\mathbf{v}^{\alpha}$
+\end_inset
+
+ is the velocity,
+ and 
+\begin_inset Formula $\mathbf{f}^{\alpha w}$
+\end_inset
+
+,
+\begin_inset Formula $\mathbf{f}^{\alpha w}$
+\end_inset
+
+ are the diffusive drag tensors representing momentum exchange via frictional interactions between a given solute and the solid 
+\begin_inset Formula $\left(\sigma\text{, not bolded}\right)$
+\end_inset
+
+ and implicit solvent 
+\begin_inset Formula $\left(w\right)$
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Gu98"
+literal "false"
+
+\end_inset
+
+).
+ We assume that diffusive drag terms between solutes are negligible.
+\end_layout
+
+\begin_layout Standard
+The mechano-chemical potential is the sum of the mechanical and chemical potentials.
+ The chemical potential 
+\begin_inset Formula $\mu^{\alpha}$
+\end_inset
+
+ represents the rate at which the mixture free energy changes with increasing mass of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ From classical physical chemistry,
+ the general form of a constitutive relation for the chemical potential is 
+\begin_inset Formula $\mu^{\alpha}=\mu_{0}^{\alpha}\left(\theta\right)+\left(R\theta/M^{\alpha}\right)\ln a^{\alpha}$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Tinoco-Jr.95"
+literal "true"
+
+\end_inset
+
+,
+ where 
+\begin_inset Formula $R$
+\end_inset
+
+ is the universal gas constant,
+ 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is the absolute temperature,
+ 
+\begin_inset Formula $M^{\alpha}$
+\end_inset
+
+ is the molecular weight (invariant) and 
+\begin_inset Formula $a^{\alpha}$
+\end_inset
+
+ is the activity of constituent 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ (a non-dimensional quantity);
+ 
+\begin_inset Formula $\mu_{0}^{\alpha}\left(\theta\right)$
+\end_inset
+
+ is the chemical potential at some arbitrary reference state,
+ at a given temperature.
+ As previously outlined in the FEBio manual (Biphasic-Solute governing equations),
+ 
+\begin_inset Formula $a^{\alpha}=\gamma^{\alpha}c^{\alpha}/\kappa^{\alpha}c_{0}^{\alpha}=c^{\alpha}/\tilde{\kappa}^{\alpha}c_{0}^{\alpha}$
+\end_inset
+
+ where 
+\begin_inset Formula $c_{0}^{\alpha}$
+\end_inset
+
+ is the solute concentration in some standard reference state (an invariant,
+ typically 
+\begin_inset Formula $c_{0}^{\alpha}=1\,\mbox{M})$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\gamma^{\alpha}$
+\end_inset
+
+ is the non-dimensional activity coefficient (deviation from ideal physico-chemical behavior 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Tinoco-Jr.95"
+literal "true"
+
+\end_inset
+
+),
+ and solubility due to the fraction of the pore space which is accessible to the solute.
+ For the elastic-solute materials,
+ we assume both ideal physico-chemical behavior,
+ and no exclusion of the interstitial space of the porous solid matrix throughout the analysis (i.e.,
+ 
+\begin_inset Formula $\forall t\geq0\,\tilde{\kappa}^{\alpha}=\kappa^{\alpha}=\gamma^{\alpha}=1$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+In an elastic solute material,the mechano-electrochemical potential of each solute is simplified to 
+\begin_inset Formula 
+\begin{equation}
+\tilde{\mu}^{\alpha}=\mu_{0}^{\alpha}\left(\theta\right)+\frac{R\theta}{M^{\alpha}}\left(\ln\frac{c^{\alpha}}{c_{0}^{\alpha}}\right).
+\end{equation}
+
+\end_inset
+
+The gradient of the mechano-chemical potential gives 
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\grad\tilde{\mu}^{\alpha} & =\frac{R\theta}{M^{\alpha}c^{\alpha}}\grad c^{\alpha}\\
+ & =\frac{R\theta}{\rho^{\alpha}}\grad c^{\alpha}
+\end{aligned}
+.
+\end{equation}
+
+\end_inset
+
+For elastic-solute analyses,
+ we assume that the fluid convection over the timescale of solid deformation is negligible (i.e.,
+ 
+\begin_inset Formula $\mathbf{w}=\mathbf{v}^{w}-\mathbf{v}^{\sigma}\approx\mathbf{0}$
+\end_inset
+
+) which implies 
+\begin_inset Formula $\mathbf{v}^{\sigma}=\mathbf{v}^{w}$
+\end_inset
+
+ (which is justified when assuming that 
+\begin_inset Formula $\mathbf{v}^{w}$
+\end_inset
+
+ represents the average solvent velocity over large time-scales).
+ Thus,
+ the resulting balance of linear momentum becomes
+\begin_inset Formula 
+\begin{equation}
+-R\theta\grad c^{\alpha}-(\mathbf{f}^{\alpha\sigma}+\mathbf{f}^{\alpha w})\cdot(\mathbf{v}^{\alpha}-\mathbf{v}^{s})=\mathbf{0}\,.
+\end{equation}
+
+\end_inset
+
+This expression can be formulated in terms of the solute molar flux 
+\begin_inset Formula $\left(\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\sigma}\right)\right)$
+\end_inset
+
+ and the effective diffusivity 
+\begin_inset Formula $\mathbf{d}^{\alpha}=R\theta c^{\alpha}\left(\mathbf{f}^{\alpha\sigma}+\mathbf{f}^{\alpha w}\right)^{-1}$
+\end_inset
+
+.
+ Fick's first law is recovered by multiplying 
+\begin_inset Formula $c^{\alpha}\left(\mathbf{f}^{\alpha s}\right)^{-1}$
+\end_inset
+
+ into the above expression:
+\begin_inset Formula 
+\begin{equation}
+\mathbf{j}^{\alpha}=-\mathbf{d}^{\alpha}\grad c^{\alpha}\,.
+\end{equation}
+
+\end_inset
+
+This form of the mass balance for the solute is convenient for a finite element formulation where the mesh is defined on the solid matrix.
+\end_layout
+
+\begin_layout Section
+Chemical Reactions
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:chem-rxn"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Chemical reactions are incorporated into the mixture through the mass supply term 
+\begin_inset Formula $\hat{\rho}^{\alpha}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\text{and thus }\hat{c}^{\alpha}\right)$
+\end_inset
+
+.
+ This section details the treatment of chemical species and their kinetics.
+\end_layout
+
+\begin_layout Subsection
+Solutes
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:solutes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In chemistry,
+ solute content is often represented in units of molar concentration (moles per fluid volume).
+ It follows that solute molar concentration 
+\begin_inset Formula $c^{\alpha}$
+\end_inset
+
+ and molar supply 
+\begin_inset Formula $\hat{c}^{\alpha}$
+\end_inset
+
+ are related to 
+\begin_inset Formula $\rho^{\alpha}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\rho}^{\alpha}$
+\end_inset
+
+ via 
+\begin_inset Formula 
+\begin{equation}
+c^{\alpha}=\frac{\rho^{\alpha}}{M^{\alpha}},\quad\hat{c}^{\alpha}=\frac{\hat{\rho}^{\alpha}}{M^{\alpha}}\,.
+\end{equation}
+
+\end_inset
+
+The molar flux of constituent 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ relative to the solid is given by 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{j}^{\alpha}=c^{\alpha}\left(\mathbf{v}^{\alpha}-\mathbf{v}^{\alpha}\right)\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mass Action Chemical Kinetics
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:mass-action-kinetics"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Productions rates are described by constitutive relations which are functions of the state variables.
+ In a biological mixture under isothermal conditions,
+ the minimum set of state variables needed to describe reactive mixtures that include a solid matrix are:
+ the (uniform) temperature 
+\begin_inset Formula $\theta$
+\end_inset
+
+,
+ the solid matrix deformation gradient 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ (or related strain measures),
+ and the molar content 
+\begin_inset Formula $c^{\alpha}$
+\end_inset
+
+ of the various constituents.
+ This set differs from the classical treatment of chemical kinetics in fluid mixtures by the inclusion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ (of which we treat differently here than in the multiphasic module).
+ 
+\end_layout
+
+\begin_layout Standard
+Consider a general chemical reaction,
+ 
+\begin_inset Formula 
+\begin{equation}
+\sum\limits_{\alpha}\nu_{R}^{\alpha}c^{\alpha}\to\sum\limits_{\alpha}\nu_{P}^{\alpha}c^{\alpha}\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\nu_{R}^{\alpha}$
+\end_inset
+
+ and 
+\begin_inset Formula $\nu_{P}^{\alpha}$
+\end_inset
+
+ represent stoichiometric coefficients of the reactants and products,
+ respectively.
+ Since the molar supply of reactants and products is constrained by stoichiometry,
+ it follows that all molar supplies 
+\begin_inset Formula $\hat{c}_{i}^{\alpha}$
+\end_inset
+
+ due to chemical reactions 
+\begin_inset Formula $i\in r$
+\end_inset
+
+ may be related to production rates 
+\begin_inset Formula $\hat{\zeta}_{i}$
+\end_inset
+
+ according to 
+\begin_inset Formula 
+\begin{equation}
+\hat{c}_{i}^{\alpha}=\nu_{i}^{\alpha}\hat{\zeta}_{i}\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\nu_{i}^{\alpha}$
+\end_inset
+
+ represents the net stoichiometric coefficient for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+:
+ 
+\begin_inset Formula 
+\begin{equation}
+\nu_{i}^{\alpha}=\nu_{P,i}^{\alpha}-\nu_{R,i}^{\alpha}\,.
+\end{equation}
+
+\end_inset
+
+The production rate 
+\begin_inset Formula $\hat{\zeta}_{i}$
+\end_inset
+
+ for mass-action forward reactions is given by :
+\begin_inset Formula 
+\begin{equation}
+\hat{\zeta}_{i}=k_{i}\prod\limits_{\alpha}\left(c^{\alpha}\right)^{\nu_{i}^{\alpha}}\,.
+\end{equation}
+
+\end_inset
+
+The total molar supply is given by the summation
+\begin_inset Formula 
+\begin{equation}
+\hat{c}^{\alpha}=\sum_{i}\nu_{i}^{\alpha}\hat{\zeta}_{i}
+\end{equation}
+
+\end_inset
+
+From the main FEBio theory manual,
+ it follows in general that 
+\begin_inset Formula $c_{i}^{\alpha}=\nu^{\alpha}\hat{\zeta}_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Hill-Type Chemical Kinetics
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:hill-kinetics"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An alternate set of chemical kinetics is introduced with Hill-type equations where species 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is activated (denoted by Boolean operator 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+) by species 
+\begin_inset Formula $\beta$
+\end_inset
+
+.
+ The Hill-type equation has the form:
+\begin_inset Formula 
+\begin{equation}
+f_{\rightarrow\beta}^{\alpha}=\frac{B\left(c^{\beta}\right)^{n}}{K^{n}+\left(c^{\beta}\right)^{n}}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+B=\frac{\text{EC}_{50}^{n-1}-1}{2\text{EC}_{50}^{n-1}-1}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+K=\left(B-1\right)^{1/n}\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $n$
+\end_inset
+
+ is the Hill coefficient and 
+\begin_inset Formula $\text{EC}_{50}^{n-1}$
+\end_inset
+
+ is the concentration or activity level 
+\begin_inset Formula $c^{\beta}$
+\end_inset
+
+ at which the production of 
+\begin_inset Formula $c^{\alpha}$
+\end_inset
+
+ becomes half maximal.
+ Inhibition of species 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ by a tertiary species 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ is given through the Boolean NOT operation,
+ i.e.,:
+\begin_inset Formula 
+\begin{equation}
+f_{\neg\gamma}^{\alpha}=1-f_{\rightarrow\gamma}^{\alpha}\,.
+\end{equation}
+
+\end_inset
+
+ When a species 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is simultaneously activated and/or inhibited by multiple species,
+ the net Hill equation is achieved through the Boolean AND operation (denoted by Boolean operator 
+\begin_inset Formula $\wedge$
+\end_inset
+
+):
+\begin_inset Formula 
+\begin{equation}
+f_{\rightarrow\beta\wedge\neg\gamma}^{\alpha}=f_{\rightarrow\beta}^{\alpha}f_{\neg\gamma}^{\alpha}\,.
+\end{equation}
+
+\end_inset
+
+The (normalized) molar production rate for a chemical species is given by setting 
+\begin_inset Formula $\nu_{i}^{\alpha}=1,\,\hat{\zeta}_{i}=k_{H}f_{i}^{\alpha}$
+\end_inset
+
+,
+ i.e.,:
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\hat{c}_{i}^{\alpha}=k_{H}f_{i}^{\alpha}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Kinematic Growth
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:kg"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The motivation to develop the elastic reaction-diffusion solver plugin was to model kinematic growth driven by chemical species production without considering fluid pressure,
+ poroelasticity/permeability,
+ or electrochemistry.
+ Kinematic growth (KG) theory is a framework to model tissue expansion and contraction which may be related directly to any state variable.
+ This is an alternative framework to constrained mixture theory (CMT) which is included in the main FEBio release.
+ Unlike CMT,
+ KG may be modeled as an open system where supplies and sinks of mass or energy may be implicitly available (or negligible on the time scale of growth which occurs over days to years).
+ Kinematic growth is computationally simpler than CMT as it does not require tracking of multiple reference configurations,
+ pre-stretches,
+ and generations of each mixture constituent.
+ Instead,
+ KG assumes that the deformation gradient 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ may be multiplicatively decomposed into a growth contribution 
+\begin_inset Formula $\mathbf{F}^{g}$
+\end_inset
+
+ and elastic contribution 
+\begin_inset Formula $\mathbf{F}^{e}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\mathbf{F}=\mathbf{F}^{e}\mathbf{F}^{g}\,.
+\end{equation}
+
+\end_inset
+
+The growth deformation tensor maps the reference configuration 
+\begin_inset Formula $\Omega_{0}$
+\end_inset
+
+ into an intermediate 
+\begin_inset Quotes eld
+\end_inset
+
+stress-free
+\begin_inset Quotes erd
+\end_inset
+
+ configuration 
+\begin_inset Formula $\Omega_{*}$
+\end_inset
+
+in which material elements (points,
+ lines,
+ areas,
+ volumes) may overlap.
+ The elastic deformation tensor then maps from the intermediate configuration into the current configuration 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ which accounts for both the residual stresses needed to resolve overlaps between adjacent material elements,
+ as well as any externally imposed boundary conditions that occur in a traditional solid analysis.
+ The growth tensor is postulated as a function of a state variable and is often constrained to assume an orthogonal,
+ symmetric positive definite tensor with a growth stretch 
+\begin_inset Formula $\vartheta_{i}$
+\end_inset
+
+ along each principal direction:
+\begin_inset Formula 
+\begin{equation}
+\mathbf{F}^{g}=\sum_{i=1}^{N}\vartheta_{i}\mathbf{n}_{0,i}\otimes\mathbf{n}_{0,i}\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{n}_{0,i}$
+\end_inset
+
+is the orientation of each principal direction in the reference configuration.
+ Typically,
+ growth is modeled as line-type,
+ area-type,
+ or volume-type given by:
+\begin_inset Formula 
+\begin{equation}
+\mathbf{F}^{g}=\begin{cases}
+\mathbf{I}+\left[\vartheta-1\right]\mathbf{n}_{\parallel}\otimes\mathbf{n}_{\parallel} & \text{line-type:}\,(N=1),\,\vartheta_{1}=\vartheta;\,\mathbf{n}_{\parallel}=\mathbf{n}_{0,1}\\
+\sqrt{\vartheta}\mathbf{I}+\left[1-\sqrt{\vartheta}\right]\mathbf{n}_{\perp}\otimes\mathbf{n}_{\perp} & \text{area-type:\,}(N=2),\,\vartheta_{1},\vartheta_{2}=\vartheta;\,\mathbf{n}_{\perp}=\mathbf{n}_{0,3}\\
+\vartheta^{1/3}\mathbf{I} & \text{volume-type:}\,(N=3),\,\vartheta_{1},\vartheta_{2},\vartheta_{3}=\vartheta
+\end{cases}\,.
+\end{equation}
+
+\end_inset
+
+Note that we only consider 
+\begin_inset Quotes eld
+\end_inset
+
+isotropic growth
+\begin_inset Quotes erd
+\end_inset
+
+ where the growth stretch along any growing direction is the same but is 1 for non-growing directions.
+ The stretch may be defined as a function of time or as a function of another variable.
+ Often,
+ the rate of growth is posited instead of the growth stretch which is solved by iterative methods.
+ The rate of growth has the general form 
+\begin_inset Formula 
+\begin{equation}
+\dot{\vartheta}=k(\vartheta)\phi(\bullet)\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $k(\vartheta)$
+\end_inset
+
+ is a function that bounds the solution to prevent uncontrollable growth/contraction and 
+\begin_inset Formula $\phi(\bullet)$
+\end_inset
+
+ is the function that depends on the posited variable of interest.
+ We implement 
+\begin_inset Formula $k(\vartheta)$
+\end_inset
+
+ as the bandpass function:
+\begin_inset Formula 
+\begin{equation}
+k(\vartheta)=\vartheta_{\text{min}}+\vartheta_{\text{max}}\left(\frac{1}{1+\exp\left(-\frac{\vartheta-\vartheta_{a}}{\gamma}\right)}+\frac{1}{1+\exp\left(-\frac{\vartheta-\vartheta_{a}}{\gamma}\right)}\right)\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\vartheta_{a}$
+\end_inset
+
+ determines the width of the bandpass,
+ and 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ controls the rate of transition from the lower bound
+\begin_inset Formula $\vartheta_{\text{min}}$
+\end_inset
+
+to the upper bound 
+\begin_inset Formula $\vartheta_{\text{max}}$
+\end_inset
+
+.
+ Most commonly,
+ 
+\begin_inset Formula $\phi(\bullet)$
+\end_inset
+
+ has been formulated as a function of stress,
+ strain,
+ or one of their invariants.
+ We focus instead on 
+\begin_inset Formula $\phi\left(\dot{c}^{\alpha}\right)$
+\end_inset
+
+ such that growth emerges from changes in chemical a species 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ while accounting for its history since the reference configuration.
+ Currently,
+ a simple relation is supported:
+\begin_inset Formula 
+\begin{equation}
+\phi\left(\dot{c}^{\alpha}\right)=g\frac{dc^{\alpha}}{dt}\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $g$
+\end_inset
+
+ is a constant scalar.
+ 
+\end_layout
+
+\begin_layout Standard
+The unknown deformation gradients 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+and 
+\begin_inset Formula $\mathbf{F}^{g}$
+\end_inset
+
+ are solved by postulating 
+\begin_inset Formula $\mathbf{F}^{g}$
+\end_inset
+
+ ,
+ solving the elastic stress 
+\begin_inset Formula $\mathbf{S}^{e}$
+\end_inset
+
+ due to 
+\begin_inset Formula $\mathbf{F}^{e}$
+\end_inset
+
+ in the intermediate configuration 
+\begin_inset Formula $\Omega_{*}$
+\end_inset
+
+ that results from an increment in nodal displacements 
+\begin_inset Formula $\mathbf{u}$
+\end_inset
+
+,
+ and then performing the appropriate push-pull operations.
+ It is useful to note the following quantities that are derived from the deformation gradients:
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+J=\det\mathbf{F}=J^{e}J^{g}\,, & J^{e}=\det\mathbf{F}^{e}\,, & J^{g}=\det\mathbf{F}^{g}\,,\end{array}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\mathbf{C}=\mathbf{F}^{T}\mathbf{F}=\mathbf{F}^{gT}\mathbf{F}^{eT}\mathbf{F}^{e}\mathbf{F}^{g}\,, & \mathbf{C}^{e}=\mathbf{F}^{e}\mathbf{F}^{eT}\,, & \mathbf{C}^{e}=\mathbf{F}^{e}\mathbf{F}^{eT}\,,\end{array}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $J,J^{e},J^{g}$
+\end_inset
+
+ are volume ratios and 
+\begin_inset Formula $\mathbf{C},\mathbf{C}^{e},\mathbf{C}^{g}$
+\end_inset
+
+ are right Cauchy-Green deformation tensors.
+ The elastic stress is determined from:
+\begin_inset Formula 
+\begin{equation}
+\mathbf{S}^{e}=2\frac{\partial W^{e}}{\partial\mathbf{C}^{e}}\,.
+\end{equation}
+
+\end_inset
+
+A pull-back operation provides the (referential) 2nd Piola-Kirchhoff stress:
+\begin_inset Formula 
+\begin{equation}
+\mathbf{S}=J^{g}\mathbf{F}^{g-1}\cdot\mathbf{S}^{e}\cdot\mathbf{F}^{g-T}\,,
+\end{equation}
+
+\end_inset
+
+while a push-forward operation provides the Cauchy stress:
+\begin_inset Formula 
+\begin{equation}
+\bm{\sigma}=\frac{1}{J}\mathbf{F}\cdot\mathbf{S}\cdot\mathbf{F}^{T}=\frac{1}{J^{e}}\mathbf{F}^{e}\cdot\mathbf{S}^{e}\cdot\mathbf{F}^{eT}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Linearization and Discretization of the Nonlinear FE Method
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:erd-lin-disc"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The chapter begins with a short introduction to the weak formulation for the physics described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:continuum-mechanics"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+.
+ The linearization and discretization of the general weak form are demonstrated in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:erd-weak-form"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+.
+ Next,
+ tangents for kinematic growth analyses are introduced in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:kg-lin-disc"
+
+\end_inset
+
+.Finally,
+ the tangents for chemical kinetics are presented in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:chem-lin-disc"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Weak Formulation for Elastic Reaction-Diffusion Materials
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:erd-weak-form"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The virtual work integral for a mixture of intrinsically incompressible constituents combines the balance of momentum for the mixture,
+ the balance of mass for the mixture,
+ and the balance of mass for each of the solutes.
+ 
+\end_layout
+
+\begin_layout Standard
+For the elastic reaction-diffusion materials,
+ it is assumed that there is a large difference in time scales between displacements and solute transport and kinetics (such as during some growth and remodeling simulations).
+ The first consequence of this is that solute 
+\begin_inset Formula $c^{\alpha}$
+\end_inset
+
+concentrations,
+ solute flux 
+\begin_inset Formula $\mathbf{j}^{\alpha}$
+\end_inset
+
+,
+ and diffusivity 
+\begin_inset Formula $\mathbf{d}^{\alpha}$
+\end_inset
+
+ are unaffected by volumetric changes (i.e.,
+ 
+\begin_inset Formula $J$
+\end_inset
+
+) or rotation.
+ Thus,
+ unlike the multiphasic module,
+ interactions between solid displacements and concentration displacements 
+\begin_inset Formula $\left(\frac{\partial k}{\partial\mathbf{E}},\hat{\boldsymbol{\zeta}_{\varepsilon}},\mathcal{\boldsymbol{D}}^{\alpha},\frac{\delta c^{\alpha}}{J},\frac{\partial\tilde{\kappa}}{J},\mathbf{j}_{u}^{\prime},\text{etc.}\right)$
+\end_inset
+
+ are not evaluated unless otherwise stated.
+ The second consequence is that fluid pressure 
+\begin_inset Formula $\left(p,\tilde{p}\right)$
+\end_inset
+
+ and solute convection are assumed to be negligible 
+\begin_inset Formula $\left(\text{as are}\mathcal{\boldsymbol{\mathcal{K}}},\tilde{\boldsymbol{\mathcal{K}}},\tilde{\mathbf{k}}_{c}^{\prime},\frac{\partial\tilde{\mathcal{K}}}{\partial c^{\alpha}},\mathbf{w}_{u}^{\prime},\mathbf{w}_{c}^{\prime}\right)$
+\end_inset
+
+.
+ Finally,
+ standard thermodynamic conditions are assumed throughout the analysis such that the activity coefficient,
+ effective solubility,
+ partition coefficient,
+ osmotic coefficient,
+ and diffusivities are constant 
+\begin_inset Formula $\left(\text{i.e.,}\gamma^{\alpha},\hat{\kappa}^{\alpha},\tilde{\kappa}^{\alpha}=1,\,\Phi=0,\,\frac{\partial\mathbf{d}^{\alpha}}{\partial\tilde{c}^{\gamma}},\frac{\partial\mathbf{d}^{\alpha}}{\partial\tilde{\kappa}^{\gamma}},\mathbf{d}_{c}^{\prime},\frac{\partial d_{0}}{\partial\tilde{}}=\boldsymbol{0}\right)$
+\end_inset
+
+.
+ We leave the possibility that the stress/strain and solute concentrations may contain interaction terms 
+\begin_inset Formula $\left(\text{e.g.,}\boldsymbol{\sigma}_{c}^{\prime},\frac{\partial\mathbf{S}}{\partial c},\frac{\partial c}{\partial\boldsymbol{\sigma}},\frac{\partial k}{\partial\mathbf{E}},\hat{\boldsymbol{\zeta}_{\varepsilon}}\right)$
+\end_inset
+
+ may be non-zero under certain kinematic growth relations.
+ This analysis should not be used if modeling electrochemistry or short-time mechano-chemical phenomena are desired (e.g.
+ osmotic pressure,
+ non-negligible solute volume fractions,
+ convection).
+ 
+\end_layout
+
+\begin_layout Standard
+The virtual work integral simplifies to:
+ 
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\delta W & =\delta G\\
+ & +\int_{b}\delta\mathbf{v}\cdot\divg\boldsymbol{\sigma}\,dv\\
+ & +\sum\limits_{\alpha}\int_{b}\delta c^{\alpha}\left[\frac{D}{Dt}c^{\alpha}+\divg\mathbf{j}^{\alpha}\right]\,dv\,,
+\end{aligned}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\delta\mathbf{v}$
+\end_inset
+
+ is the virtual velocity of the solid,
+ 
+\begin_inset Formula $\delta c^{\alpha}$
+\end_inset
+
+ is the virtual molar energy of solute 
+\begin_inset Formula $\alpha$
+\end_inset
+
+,
+ and 
+\begin_inset Formula $\delta G$
+\end_inset
+
+ is the Gibb's free energy (due to chemical reactions).
+ Here,
+ 
+\begin_inset Formula $b$
+\end_inset
+
+ represents the mixture domain in the spatial frame and 
+\begin_inset Formula $dv$
+\end_inset
+
+ is an elemental volume in 
+\begin_inset Formula $b$
+\end_inset
+
+.
+ The Gibb's free energy is given by
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\delta G & =\sum_{\alpha}\sum_{i}\int_{b}\delta c^{\alpha}\hat{c}_{i}^{\alpha}\,dv\,.\end{aligned}
+\end{equation}
+
+\end_inset
+
+Applying the divergence theorem,
+ 
+\begin_inset Formula $\delta W$
+\end_inset
+
+ may be split into internal and external contributions to the virtual work,
+ 
+\begin_inset Formula $\delta W=\delta W_{\text{ext}}-\delta W_{\text{int}}$
+\end_inset
+
+,
+ where 
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\delta W_{\text{int}} & =\delta G\\
+ & +\int_{b}\boldsymbol{\sigma}:\delta\mathbf{d}^{s}\,dv\\
+ & +\sum\limits_{\alpha}\int_{b}\left[\mathbf{j}^{\alpha}\cdot\grad\delta c^{\alpha}-\delta c^{\alpha}\frac{D}{Dt}c^{\alpha}\right]\,dv\,,
+\end{aligned}
+\end{equation}
+
+\end_inset
+
+and the external work is given by
+\begin_inset Formula 
+\begin{equation}
+\delta W_{\text{ext}}=\int_{\partial b}\left[\delta\mathbf{v}\cdot\mathbf{t}+\sum\limits\delta c^{\alpha}j_{n}^{\alpha}\right]\,da\,.
+\end{equation}
+
+\end_inset
+
+In these expressions,
+ 
+\begin_inset Formula $\delta\mathbf{d}^{s}=\left(\grad\delta\mathbf{v}+\grad^{T}\delta\mathbf{v}\right)/2$
+\end_inset
+
+ (not to be confused with diffusivity tensors 
+\begin_inset Formula $\mathbf{d}^{\alpha}$
+\end_inset
+
+),
+ 
+\begin_inset Formula $\partial b$
+\end_inset
+
+ is the boundary of 
+\begin_inset Formula $b$
+\end_inset
+
+,
+ and 
+\begin_inset Formula $da$
+\end_inset
+
+ is an elemental area on 
+\begin_inset Formula $\partial b$
+\end_inset
+
+.
+ In this finite element formulation,
+ 
+\begin_inset Formula $\mathbf{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $c^{\alpha}$
+\end_inset
+
+ are used as nodal variables,
+ and essential boundary conditions may be prescribed on these variables.
+ Natural boundary conditions are prescribed to the mixture traction,
+ 
+\begin_inset Formula $\mathbf{t}=\boldsymbol{\sigma}\cdot\mathbf{n}$
+\end_inset
+
+ and normal solute flux 
+\begin_inset Formula $j_{n}^{\alpha}=\mathbf{j}^{\alpha}\cdot\mathbf{n}$
+\end_inset
+
+,
+ where 
+\begin_inset Formula $\mathbf{n}$
+\end_inset
+
+ is the outward unit normal to 
+\begin_inset Formula $\partial b$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Linearization along 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:erd-lin-du"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Linearization of the elastic reaction-diffusion module is symbolically given by 
+\begin_inset Formula 
+\begin{equation}
+\delta W+D\delta W\left[\Delta\mathbf{u}\right]+\sum_{\alpha}D\delta W\left[\Delta c^{\alpha}\right]\approx0\,.
+\end{equation}
+
+\end_inset
+
+The linearization of the first term in 
+\begin_inset Formula $\delta W_{\text{int}}$
+\end_inset
+
+ along 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+ yields 
+\begin_inset Formula 
+\begin{equation}
+D\left(\mathbf{S}:\delta\mathbf{\dot{E}}\right)\left[\Delta\mathbf{u}\right]\,dV=\left[\delta\mathbf{d}^{s}:\boldsymbol{\mathcal{C}}:\Delta\bm{\varepsilon}+\boldsymbol{\sigma}:\left(\grad^{T}\Delta\mathbf{u}\cdot\grad\delta\mathbf{v}\right)\right]\,dv\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{\mathcal{C}}$
+\end_inset
+
+ is the spatial elasticity tensor of the solid,
+ 
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\mathcal{C}}=J^{-1}\left[\mathbf{F}\oslash\mathbf{F}\right]:\mathbb{C}:\left[\mathbf{F}^{T}\oslash\mathbf{F}^{T}\right]\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbb{C}$
+\end_inset
+
+is the material elasticity tensor of the mixture.
+\end_layout
+
+\begin_layout Standard
+The second term is given by 
+\begin_inset Formula 
+\begin{equation}
+D\left(\mathbf{J}^{\alpha}\cdot\Grad\delta c^{\alpha}\right)\left[\Delta\mathbf{u}\right]\,dV=0\,,
+\end{equation}
+
+\end_inset
+
+where it is assumed that concentration is unaffected by deformation and molar flux is unaffected by rotation.
+ 
+\end_layout
+
+\begin_layout Standard
+The third and fourth terms are given by:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+D\left(\delta c^{\alpha}\frac{\partial c^{\alpha}}{\partial t}\right)\left[\Delta\mathbf{u}\right]\,dV=0\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+D\delta G\left[\Delta\mathbf{u}\right]\,dV=0.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Linearization along 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:erd-lin-dc"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The linearization of the first term in 
+\begin_inset Formula $\delta W_{\text{int}}$
+\end_inset
+
+ along 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+ yields 
+\begin_inset Formula 
+\begin{equation}
+D\left(\mathbf{S}:\delta\mathbf{\dot{E}}\right)\left[\Delta c^{\gamma}\right]dV=0.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The second term is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+D\left(\mathbf{J}^{\alpha}\cdot\Grad\delta c^{\alpha}\right)\left[\Delta c^{\gamma}\right]\,dV=\delta_{\alpha\gamma}\grad\delta c^{\alpha}\cdot\mathbf{d}^{\alpha}\cdot\grad\Delta c^{\gamma}\,dv\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\delta_{\alpha\gamma}$
+\end_inset
+
+ is the Kronecker delta such that 
+\begin_inset Formula $\alpha=\gamma\rightarrow\delta=0\,,\alpha\neq\gamma\rightarrow\delta=0\,.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The third term is 
+\begin_inset Formula 
+\begin{equation}
+D\left(\frac{\partial c^{\alpha}}{\partial t}\delta c^{\alpha}\right)\left[\Delta c^{\gamma}\right]\,dV=\delta c^{\alpha}\frac{\delta_{\alpha\gamma}}{\Delta t}\Delta c^{\gamma}\,dv\,.
+\end{equation}
+
+\end_inset
+
+where we similarly used a backward difference scheme to discretize the time derivative.
+\end_layout
+
+\begin_layout Standard
+The final term is 
+\begin_inset Formula 
+\begin{equation}
+D\delta G\left[\Delta c^{\gamma}\right]dV=\sum_{\alpha}\sum_{i}\int_{b}\delta c^{\alpha}\frac{\partial\hat{c}_{i}^{\alpha}}{\partial c^{\gamma}}\Delta c^{\gamma}dv\,,
+\end{equation}
+
+\end_inset
+
+where the terms 
+\begin_inset Formula $\partial\hat{c}_{i}^{\alpha}/\partial c^{\gamma}$
+\end_inset
+
+ depends on the specific reaction kinetics (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:chem-lin-disc"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection
+Linearization of External Virtual Work
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:erd-lin-ext"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The linearization of 
+\begin_inset Formula $\delta W_{\text{ext}}$
+\end_inset
+
+ depends on whether natural boundary conditions are prescribed as area densities or total net values over an area.
+ Thus,
+ in the case when 
+\begin_inset Formula $\mathbf{t}\,da$
+\end_inset
+
+ (net force) or 
+\begin_inset Formula $j_{n}^{\alpha}da$
+\end_inset
+
+ (net molar flow rate) are prescribed over the elemental area 
+\begin_inset Formula $da$
+\end_inset
+
+,
+ there is no variation in 
+\begin_inset Formula $\delta W_{\text{ext}}$
+\end_inset
+
+ and it follows that 
+\begin_inset Formula $D\delta W_{\text{ext}}=0$
+\end_inset
+
+.
+ Alternatively,
+ in the case when 
+\begin_inset Formula $\mathbf{t}$
+\end_inset
+
+ or 
+\begin_inset Formula $j_{n}^{\alpha}$
+\end_inset
+
+ are prescribed,
+ the linearization may be performed by evaluating the integral in the parametric space of the boundary surface 
+\begin_inset Formula $\partial b$
+\end_inset
+
+,
+ with parametric coordinates 
+\begin_inset Formula $\left(\eta^{1},\eta^{2}\right)$
+\end_inset
+
+.
+ Accordingly,
+ for a point 
+\begin_inset Formula $\mathbf{x}\left(\eta^{1},\eta^{2}\right)$
+\end_inset
+
+ on 
+\begin_inset Formula $\partial b$
+\end_inset
+
+,
+ surface tangents (covariant basis vectors) are given by 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{g}_{\alpha}=\frac{\partial\mathbf{x}}{\partial\eta^{\alpha}},\quad\left(\alpha=1,2\right)
+\end{equation}
+
+\end_inset
+
+and the outward unit normal is 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{n}=\frac{\mathbf{g}_{1}\times\mathbf{g}_{2}}{\left|\mathbf{g}_{1}\times\mathbf{g}_{2}\right|}\,.
+\end{equation}
+
+\end_inset
+
+The elemental area on 
+\begin_inset Formula $\partial b$
+\end_inset
+
+ is 
+\begin_inset Formula $da=\left|\mathbf{g}_{1}\times\mathbf{g}_{2}\right|d\eta^{1}d\eta^{2}$
+\end_inset
+
+.
+ Consequently,
+ the external virtual work integral may be rewritten as 
+\begin_inset Formula 
+\begin{equation}
+\delta W_{\text{ext}}=\int_{\partial b}\left(\delta\mathbf{v}\cdot\mathbf{t}+\sum\limits_{\alpha\ne s,w}^{\alpha_{s}}\delta c^{\alpha}j_{n}^{\alpha}\right)\left|\mathbf{g}_{1}\times\mathbf{g}_{2}\right|\,d\eta^{1}d\eta^{2}\,,
+\end{equation}
+
+\end_inset
+
+The directional derivative of 
+\begin_inset Formula $\delta W_{\text{ext}}$
+\end_inset
+
+ may then be applied directly to its integrand,
+ since the parametric space is invariant 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Bonet97"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If we restrict traction boundary conditions to the special case of normal tractions,
+ then 
+\begin_inset Formula $\mathbf{t}=t_{n}\mathbf{n}$
+\end_inset
+
+ where 
+\begin_inset Formula $t_{n}$
+\end_inset
+
+ is the prescribed normal traction component.
+ Then it can be shown that the linearization of 
+\begin_inset Formula $\delta W_{\text{ext}}$
+\end_inset
+
+ along 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+ produces 
+\begin_inset Formula 
+\begin{equation}
+D\left(\delta W_{\text{ext}}\right)\left[\Delta\mathbf{u}\right]=\int_{\partial b}\left(t_{n}\delta\mathbf{v}+\sum\limits_{\alpha\ne s,w}^{\alpha_{s}}\delta c^{\alpha}j_{n}^{\alpha}\,\mathbf{n}\right)\cdot\left(\frac{\partial\Delta\mathbf{u}}{\partial\eta^{1}}\times\mathbf{g}_{2}+\mathbf{g}_{1}\times\frac{\partial\Delta\mathbf{u}}{\partial\eta^{2}}\right)\,d\eta^{1}d\eta^{2}\,.
+\end{equation}
+
+\end_inset
+
+The linearizations along 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+ reduces to zero,
+ 
+\begin_inset Formula $D\left(\delta W_{\text{ext}}\right)\left[\Delta c^{\gamma}\right]=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Discretization
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:erd-disc"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To discretize the virtual work relations,
+ let 
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\delta\mathbf{v} & =\sum\limits_{a=1}^{m}N_{a}\delta\mathbf{v}_{a}\,, & \Delta\mathbf{u} & =\sum\limits_{b=1}^{m}N_{b}\Delta\mathbf{u}_{b}\,,\\
+\delta c^{\alpha} & =\sum\limits_{a=1}^{m}N_{a}\delta c_{a}^{\alpha}\,, & \Delta c^{\gamma} & =\sum\limits_{b=1}^{m}N_{b}\Delta c_{b}^{\gamma}\,,
+\end{aligned}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $N_{a}$
+\end_inset
+
+ represents the interpolation functions over an element,
+ 
+\begin_inset Formula $\delta\mathbf{v}_{a}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\delta c_{a}^{\alpha}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\Delta\mathbf{u}_{a}$
+\end_inset
+
+,
+ and 
+\begin_inset Formula $\Delta c_{a}^{\gamma}$
+\end_inset
+
+ respectively represent the nodal values of 
+\begin_inset Formula $\delta\mathbf{v}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\delta c^{\alpha}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+,
+ and 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+;
+ 
+\begin_inset Formula $m$
+\end_inset
+
+ is the number of nodes in an element.
+\end_layout
+
+\begin_layout Standard
+The discretized form of 
+\begin_inset Formula $\delta W_{\text{int}}$
+\end_inset
+
+ may be written as 
+\begin_inset Formula 
+\begin{equation}
+\delta W_{\text{int}}=\sum\limits_{e=1}^{n_{e}}\sum\limits_{k=1}^{n_{\text{int}}^{\left(e\right)}}W_{k}J_{\eta}\sum\limits_{a=1}^{m}\left[\begin{array}{cccc}
+\delta\mathbf{v}_{a} & \delta c_{a}^{\alpha} & \cdots & \delta c_{a}^{\gamma}\end{array}\right]\cdot\left[\begin{array}{c}
+\mathbf{r}_{a}^{u}\\
+\:r_{a}^{\alpha}\\
+\vdots\\
+\:r_{a}^{\gamma}
+\end{array}\right]\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $n_{e}$
+\end_inset
+
+ is the number of elements in 
+\begin_inset Formula $b$
+\end_inset
+
+,
+ 
+\begin_inset Formula $n_{\text{int}}^{\left(e\right)}$
+\end_inset
+
+ is the number of integration points in the 
+\begin_inset Formula $e-$
+\end_inset
+
+th element,
+ 
+\begin_inset Formula $W_{k}$
+\end_inset
+
+ is the quadrature weight associated with the 
+\begin_inset Formula $k-$
+\end_inset
+
+th integration point,
+ and 
+\begin_inset Formula $J_{\eta}$
+\end_inset
+
+ is the Jacobian of the transformation from the current spatial configuration to the parametric space of the element.
+ In the above expression,
+ 
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\mathbf{r}_{a}^{u} & =\boldsymbol{\sigma}\cdot\grad N_{a}\,,\\
+r_{a}^{\alpha} & =\mathbf{j}^{\alpha}\cdot\grad N_{a}-N_{a}\frac{\partial c^{\alpha}}{\partial t}+N_{a}\sum_{i}\hat{c}_{i}^{\alpha}\,,
+\end{aligned}
+\end{equation}
+
+\end_inset
+
+and it is understood that 
+\begin_inset Formula $J_{\eta}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\mathbf{r}_{a}^{u}$
+\end_inset
+
+,
+ and 
+\begin_inset Formula $r_{a}^{\alpha}\,\cdots\,r_{a}^{\gamma}$
+\end_inset
+
+ are evaluated at the parametric coordinates of the 
+\begin_inset Formula $k-$
+\end_inset
+
+th integration point.
+ Since the parametric space is invariant,
+ time derivatives are evaluated in a material frame.
+ For example,
+ the time derivative 
+\begin_inset Formula $DJ\left(\mathbf{x},t\right)/Dt$
+\end_inset
+
+ becomes 
+\begin_inset Formula $\partial J\left(\eta_{k},t\right)/\partial t$
+\end_inset
+
+ when evaluated at the parametric coordinates 
+\begin_inset Formula $\eta_{k}=\left(\eta_{k}^{1},\eta_{k}^{2},\eta_{k}^{3}\right)$
+\end_inset
+
+ of the 
+\begin_inset Formula $k-$
+\end_inset
+
+th integration point.
+ All time derivatives are discretized using a backward difference scheme.
+\end_layout
+
+\begin_layout Standard
+Similarly,
+ the discretized form of 
+\begin_inset Formula $D\delta W_{\text{int}}=D\delta W_{\text{int}}\left[\Delta\mathbf{u}\right]+\sum\nolimits_{\gamma}D\delta W_{\text{int}}\left[\Delta c^{\gamma}\right]$
+\end_inset
+
+ may be written as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+D\delta W_{\text{int}}=\sum\limits_{e=1}^{n_{e}}\sum\limits_{k=1}^{n_{\text{int}}^{\left(e\right)}}W_{k}J_{\eta}\sum\limits_{a=1}^{m}\sum\limits_{b=1}^{m}\left[\begin{array}{cccc}
+\delta\mathbf{v}_{a} & \delta c_{a}^{\alpha} & \cdots & \delta c_{a}^{\gamma}\end{array}\right]\cdot\left[\begin{array}{cccc}
+\mathbf{K}_{ab}^{uu} & \mathbf{k}_{ab}^{u\alpha} & \cdots & \mathbf{k}_{ab}^{u\gamma}\\
+\mathbf{k}_{ab}^{\alpha u} & k_{ab}^{\alpha\alpha} & \cdots & k_{ab}^{\alpha\gamma}\\
+\vdots & \vdots & \ddots & \vdots\\
+\mathbf{k}_{ab}^{\gamma u} & k_{ab}^{\gamma\alpha} & \cdots & k_{ab}^{\gamma\gamma}
+\end{array}\right]\cdot\left[\begin{array}{c}
+\Delta\mathbf{u}_{b}\\
+\:\Delta c_{b}^{\alpha}\\
+\vdots\\
+\:\Delta c_{b}^{\gamma}
+\end{array}\right]\,,
+\end{equation}
+
+\end_inset
+
+where the terms in the first column are the discretized form of the linearization along 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+:
+ 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{K}_{ab}^{uu}=\grad N_{a}\cdot\boldsymbol{\mathcal{C}}\cdot\grad N_{b}+\left(\grad N_{a}\cdot\boldsymbol{\sigma}\cdot\grad N_{b}\right)\mathbf{I}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\mathbf{k}_{ab}^{\alpha u}=0\,,
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The terms in the remaining columns of the stiffness matrix are the discretized form of the linearization along 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+:
+ 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{k}_{ab}^{u\alpha}=N_{b}\boldsymbol{\sigma}_{\alpha}^{\prime}\cdot\grad N_{a}\,,
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+k_{ab}^{\alpha\gamma}=-\delta_{\alpha\gamma}\grad N_{a}\cdot\mathbf{d}^{\alpha}\cdot\grad N_{b}-N_{a}N_{b}\frac{1}{\Delta t}+N_{a}N_{b}\sum_{\alpha}\sum_{i}\frac{\partial\hat{c}_{i}^{\alpha}}{\partial c^{\gamma}}\,,
+\end{equation}
+
+\end_inset
+
+The discretization of 
+\begin_inset Formula $\delta W_{\text{ext}}$
+\end_inset
+
+ has the form 
+\begin_inset Formula 
+\begin{equation}
+\delta W_{\text{ext}}=\sum\limits_{e=1}^{n_{e}}\sum\limits_{k=1}^{n_{\text{int}}^{\left(e\right)}}W_{k}J_{\eta}\sum\limits_{a=1}^{m}\left[\begin{array}{cccc}
+\delta\mathbf{v}_{a} & \delta c_{a}^{\alpha} & \cdots & \delta c_{a}^{\gamma}\end{array}\right]\cdot\left[\begin{array}{c}
+N_{a}t_{n}\mathbf{n}\\
+N_{a}j_{n}^{\alpha}\\
+\vdots\\
+N_{a}j_{n}^{\gamma}
+\end{array}\right]\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $J_{\eta}=\left|\mathbf{g}_{1}\times\mathbf{g}_{2}\right|$
+\end_inset
+
+.
+ The summation is performed over all surface elements on which these boundary conditions are prescribed.
+ The discretization of 
+\begin_inset Formula $-D\delta W_{\text{ext}}$
+\end_inset
+
+ has the form 
+\begin_inset Formula 
+\begin{equation}
+-D\delta W_{\text{ext}}=\sum\limits_{e=1}^{n_{e}}\sum\limits_{k=1}^{n_{int}^{\left(e\right)}}W_{k}J_{\eta}\sum\limits_{a=1}^{m}\sum\limits_{b=1}^{m}\left[\begin{array}{cccc}
+\delta\mathbf{v}_{a} & \delta c_{a}^{\alpha} & \cdots & \delta c_{a}^{\gamma}\end{array}\right]\cdot\left[\begin{array}{cccc}
+\mathbf{K}_{ab}^{uu} & \mathbf{k}_{ab}^{u\alpha} & \cdots & \mathbf{k}_{ab}^{u\gamma}\\
+\mathbf{k}_{ab}^{\alpha u} & k_{ab}^{\alpha\alpha} & \cdots & k_{ab}^{\alpha\gamma}\\
+\vdots & \vdots & \ddots & \vdots\\
+\mathbf{k}_{ab}^{\gamma u} & k_{ab}^{\gamma\alpha} & \cdots & k_{ab}^{\gamma\gamma}
+\end{array}\right]\cdot\left[\begin{array}{c}
+\Delta\mathbf{u}_{b}\\
+\:\Delta c_{b}^{\alpha}\\
+\vdots\\
+\:\Delta c_{b}^{\gamma}
+\end{array}\right]\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}\mathbf{K}_{ab}^{uu} & =t_{n}N_{a}\boldsymbol{\mathcal{A}}\left\{ \frac{\partial N_{b}}{\partial\eta^{1}}\mathbf{g}_{2}-\frac{\partial N_{b}}{\partial\eta^{2}}\mathbf{g}_{1}\right\} \,,\\
+\mathbf{k}_{ab}^{\alpha u} & =\mathbf{0}.
+\end{aligned}
+\end{equation}
+
+\end_inset
+
+In this expression,
+ 
+\begin_inset Formula $\boldsymbol{\mathcal{A}}\left\{ \mathbf{v}\right\} $
+\end_inset
+
+ is the antisymmetric tensor whose dual vector is 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ (such that 
+\begin_inset Formula $\boldsymbol{\mathcal{A}}\left\{ \mathbf{v}\right\} \cdot\mathbf{q}=\mathbf{v}\times\mathbf{q}$
+\end_inset
+
+ for any vector 
+\begin_inset Formula $\mathbf{q})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Linearization and Discretization of Kinematic Growth Materials
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:kg-lin-disc"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Linearization of Kinematic Growth materials along 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:kg-lin-du"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For kinematic growth,
+ additional linearization since the stress may be considered a function of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+and 
+\begin_inset Formula $\mathbf{F}^{g}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\text{i.e., }\mathbf{S}\left(\mathbf{F},\mathbf{F}^{g}\right)\right)$
+\end_inset
+
+.
+ The material elasticity tensor of the mixture now becomes:
+\begin_inset Formula 
+\begin{equation}
+\mathbb{C}=2\frac{d\mathbf{S}}{d\mathbf{C}}=\mathbb{C}^{e}+\mathbb{C}^{g}\,.
+\end{equation}
+
+\end_inset
+
+The elastic contribution is given by:
+\begin_inset Formula 
+\begin{equation}
+\mathbb{C}^{e}=2\frac{\partial\mathbf{S}(\mathbf{F},\mathbf{F}^{g})}{\partial\mathbf{C}}\Biggr|_{\mathbf{F}^{g}}=J^{g}\left[\mathbf{F}^{g-1}\oslash\mathbf{F}^{g-1}\right]:\mathbb{L}^{e}:\left[\mathbf{F}^{g-T}\oslash\mathbf{F}^{g-T}\right]\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbb{L}^{e}$
+\end_inset
+
+is the elasticity tensor that arises due to elastic deformation when observed from the stress-free intermediate configuration given by:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathbb{L}^{e}=2\frac{\partial\mathbf{S}^{e}}{\partial\mathbf{C}^{e}}\Biggr|_{\vartheta}\,.
+\end{equation}
+
+\end_inset
+
+The growth contribution is given by 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "goktepe2010"
+literal "false"
+
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\mathbb{C}^{g}=2\left[\frac{\partial\mathbf{S}(\mathbf{C},\vartheta)}{\partial\mathbf{F}^{g}}\Biggr|_{\mathbf{C}}:\frac{\partial\mathbf{F}^{g}}{\partial\vartheta}\right]\otimes\frac{\partial\vartheta}{\partial\mathbf{C}}\,.
+\end{equation}
+
+\end_inset
+
+The first term is given by
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\mathbf{S}}{\partial\mathbf{F}^{g}}=\mathbf{S}\otimes\mathbf{F}^{g-T}-\left[\mathbf{F}^{g-1}\oslash\mathbf{S}+\mathbf{S}\obslash\mathbf{F}^{g-1}\right]-J^{g}\left[\mathbf{F}^{g-1}\oslash\mathbf{F}^{g-1}\right]:\frac{1}{2}\mathbb{L}^{e}:\left[\mathbf{F}^{g-T}\obslash\mathbf{C}^{e}+\mathbf{C}^{e}\oslash\mathbf{F}^{g-T}\right]\,.
+\end{equation}
+
+\end_inset
+
+The second term is given by
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\mathbf{F}^{g}}{\partial\vartheta}=\begin{cases}
+\mathbf{n}^{\parallel}\otimes\mathbf{n}^{\parallel} & \text{line-type growth}\\
+\frac{1}{2\sqrt{\vartheta}}\left[\mathbf{I}-\mathbf{n}^{\perp}\otimes\mathbf{n}^{\perp}\right] & \text{area-type growth}
+\end{cases}\,.
+\end{equation}
+
+\end_inset
+
+The third term involves evaluating the growth scalar 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+.
+ When the evolution of the growth scalar is formulated as 
+\begin_inset Formula $\dot{\vartheta}=d\vartheta/dt$
+\end_inset
+
+,
+ the growth stretch is evaluated in a local Newton iteration with the residual 
+\begin_inset Formula $R$
+\end_inset
+
+ and its tangent 
+\begin_inset Formula $K$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+R=\vartheta-\vartheta_{n}-\dot{\vartheta}\Delta t\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+K=\frac{\partial R}{\partial\vartheta}=1-\Delta t\frac{\partial\dot{\vartheta}}{\partial\vartheta}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\dot{\vartheta}}{\partial\vartheta}=\phi(\dot{c}^{\alpha})\frac{\partial k(\vartheta)}{\partial\vartheta}+k(\vartheta)\frac{\partial\phi(\dot{c}^{\alpha})}{\partial\vartheta}\,.
+\end{equation}
+
+\end_inset
+
+The function 
+\begin_inset Formula $\phi\left(\dot{c}^{\alpha}\right)$
+\end_inset
+
+is independent of 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+.
+ Thus,
+ the tangent simplifies to:
+\begin_inset Formula 
+\begin{equation}
+K=1-\Delta t\phi\left(\dot{c}^{\alpha}\right)\frac{\partial k(\vartheta)}{\partial\vartheta}\,.
+\end{equation}
+
+\end_inset
+
+The residual is evaluated w.r.t.
+ 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ and rearranged to solve for 
+\begin_inset Formula $\frac{\partial\vartheta}{\partial\mathbf{C}}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial R}{\partial\mathbf{C}}=\frac{\partial\vartheta}{\partial\mathbf{C}}-\frac{\partial\dot{\vartheta}}{\partial\mathbf{C}}\Delta t=\mathbf{0}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vartheta}{\partial\mathbf{C}}=\frac{\partial\dot{\vartheta}}{\partial\mathbf{C}}\Delta t=\left[\phi\left(\dot{c}^{\alpha}\right)\frac{\partial k(\vartheta)}{\partial\vartheta}\frac{\partial\vartheta}{\partial\mathbf{C}}+k(\vartheta)\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}}\frac{\partial\dot{c}^{\alpha}}{\partial\mathbf{C}}\right]\Delta t\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vartheta}{\partial\mathbf{C}}=\frac{k(\vartheta)\Delta t}{K}\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}}\frac{\partial\dot{c}^{\alpha}}{\partial\mathbf{C}}\,.
+\end{equation}
+
+\end_inset
+
+Here,
+ we define the terms
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}}=\begin{cases}
+\frac{\partial\phi\left(\dot{c}^{\alpha}\right)}{\partial\dot{c}^{\alpha}} & \text{\ensuremath{\alpha=}growth species}\\
+0 & \alpha\neq\text{growth species}
+\end{cases}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial k(\vartheta)}{\partial\vartheta}=\frac{\vartheta_{\text{max}}}{\gamma}\left(\frac{\exp\left(-\frac{\vartheta+\vartheta_{a}}{\gamma}\right)}{\left(1+\exp\left(-\frac{\vartheta+\vartheta_{a}}{\gamma}\right)\right)^{2}}+\frac{\exp\left(-\frac{\vartheta-\vartheta_{a}}{\gamma}\right)}{\left(1+\exp\left(-\frac{\vartheta-\vartheta_{a}}{\gamma}\right)\right)^{2}}\right)\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\dot{c}^{\alpha}}{\partial\mathbf{C}}=\frac{J}{2}\mathbf{F}^{-1}\cdot\hat{\mathbf{c}}_{\varepsilon}^{\alpha}\cdot\mathbf{F}^{-T}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{c}}_{\varepsilon}^{\alpha}=\frac{\partial\hat{c}^{\alpha}}{\partial\bm{\mathbf{\varepsilon}}}=\sum_{i}\nu_{i}^{\alpha}\hat{\bm{\zeta}}_{\varepsilon,i}^{\alpha}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\hat{\bm{\zeta}}_{\varepsilon,i}^{\alpha}=\frac{\partial\hat{\zeta}_{i}}{\partial\bm{\varepsilon}}=\begin{cases}
+\bm{0} & \text{Morphoelastic growth}\\
+\frac{\partial\hat{\zeta}_{i}}{\partial\tr\left(\bm{\sigma}\right)} & \text{Mechanosensitive growth}
+\end{cases}\,.
+\end{equation}
+
+\end_inset
+
+Terms pertaining to chemical reactions are expanded in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:chem-lin-disc"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The linearization of the first term in 
+\begin_inset Formula $\delta W_{\text{int}}$
+\end_inset
+
+ along 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+ yields:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+D\left(\mathbf{S}:\delta\mathbf{\dot{E}}\right)\left[\Delta\mathbf{u}\right]\,dV=\left[\delta\mathbf{d}^{s}:\boldsymbol{\mathcal{C}}^{e}:\Delta\bm{\varepsilon}+\boldsymbol{\sigma}:\left(\grad^{T}\Delta\mathbf{u}\cdot\grad\delta\mathbf{v}\right)\right]\,dv\,,
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The second and third terms remain unchanged.
+ The final term is given by
+\begin_inset Formula 
+\begin{equation}
+D\delta G\left[\Delta\mathbf{u}\right]\,dV=\sum_{a}\int_{b}\delta c^{\alpha}\left[\hat{\mathbf{c}_{\varepsilon}^{\alpha}}:\Delta\bm{\varepsilon}\right]\,dv=\sum_{\alpha}\sum_{i}\nu_{i}^{\alpha}\int_{b}\delta c^{\alpha}\left[\hat{\bm{\zeta}}_{\varepsilon,i}:\Delta\bm{\varepsilon}\right]\,.
+\end{equation}
+
+\end_inset
+
+The formulations for 
+\begin_inset Formula $\hat{\mathbf{c}}_{\varepsilon,i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\bm{\zeta}}_{\varepsilon,i}$
+\end_inset
+
+ depend on the reaction kinetics as detailed in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:chem-lin-disc"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Linearization of Kinematic Growth materials along 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:kg-lin-dc"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The linearization of the first term in 
+\begin_inset Formula $\delta W_{\text{int}}$
+\end_inset
+
+ along 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+ yields 
+\begin_inset Formula 
+\begin{equation}
+D\left(\mathbf{S}:\delta\mathbf{\dot{E}}\right)\left[\Delta c^{\gamma}\right]dV=\Delta c^{\gamma}\left(\boldsymbol{\sigma}_{\gamma}^{\prime}:\delta\mathbf{d}^{s}\right)\,dv\,,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{\sigma}'_{\gamma}$
+\end_inset
+
+is generally zero except for cases where chemical kinetics are mechanosensitive (dependent on the stress or strain).
+ In this case,
+ 
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\sigma}_{\gamma}^{\prime}=J^{-1}\mathbf{F}\cdot\frac{\partial\mathbf{S}}{\partial c^{\gamma}}\cdot\mathbf{F}^{T}\,.
+\end{equation}
+
+\end_inset
+
+where symmetric growth tensors yield the expression
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\mathbf{S}}{\partial c^{\gamma}}=\frac{\partial\mathbf{S}}{\mathbf{F}^{g}}:\frac{\partial\mathbf{F}^{g}}{\partial\vartheta}\frac{\partial\vartheta}{\partial c^{\gamma}}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vartheta}{\partial c^{\gamma}}=\frac{\partial\vartheta}{\partial\dot{\vartheta}}\frac{\partial\dot{\vartheta}}{\partial\dot{c}^{\gamma}}\frac{\partial\dot{c}^{\gamma}}{\partial c^{\gamma}}=k(\vartheta)\frac{\partial\phi\left(\dot{c}^{\gamma}\right)}{\partial c^{\gamma}}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The remaining terms are unchanged.
+\end_layout
+
+\begin_layout Subsection
+Discretization of Kinematic Growth materials
+\end_layout
+
+\begin_layout Standard
+The discretization for kinematic growth materials requires altering a few terms from the elastic reaction-diffusion discretization in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:erd-disc"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The discretized form of previously zero-valued stiffness matrix contributions become:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathbf{k}_{ab}^{\alpha u}=N_{a}\sum_{i}\hat{\mathbf{c}}_{\varepsilon,i}^{\alpha}\cdot\grad N_{b}\,dv\,,
+\end{equation}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{equation}
+\mathbf{k}_{ab}^{u\alpha}=N_{b}\bm{\sigma}'_{\alpha}\cdot\grad N_{a}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Tangents for Linearization and Discretization of Chemical Reactions
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:chem-lin-disc"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Tangents that arise during the linearization along 
+\begin_inset Formula $\Delta\mathbf{u}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:chem-lin-du"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the case of stress-dependent concentration kinetics we have
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+D\delta G\left[\Delta\mathbf{u}\right]=\sum_{\alpha}\int_{b}\delta c^{\alpha}\left[\hat{\mathbf{c}}_{i}^{\alpha}:\Delta\bm{\varepsilon}\right]\,dv=\sum_{\alpha}\sum_{i}\nu_{i}^{\alpha}\int_{b}\delta c^{\alpha}\left[\hat{\bm{\zeta}}_{\varepsilon,i}:\Delta\bm{\varepsilon}\right]\,dv
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{c}}^{\alpha}=\sum_{i}\nu_{i}^{\alpha}\hat{\bm{\zeta}}_{\varepsilon,i}\,,
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\hat{\boldsymbol{\zeta}}_{\varepsilon,r}=\frac{\partial\hat{\zeta}_{r}}{\partial\bm{\varepsilon}}\,,
+\end{equation}
+
+\end_inset
+
+are the tangent of the reaction rate to the strain which depend on the specific reaction.
+ This tangent is zero unless there is a stress- or strain-dependent relationship.
+ For stress-dependent kinetics the tangent becomes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\hat{\boldsymbol{\zeta}}_{\varepsilon,r}=\frac{\partial\hat{\zeta}_{r}}{\partial\bm{\varepsilon}}=\frac{\partial\hat{\zeta}_{r}}{\partial\boldsymbol{\sigma}}:\boldsymbol{\mathcal{C}}\,,
+\end{equation}
+
+\end_inset
+
+where the specific reaction kinetics dictate 
+\begin_inset Formula $\partial\hat{\zeta}_{r}/\partial\boldsymbol{\sigma}$
+\end_inset
+
+.
+ For reactions where the reaction rate is proportional to the trace of stress as bounded by a sigmoidal function,
+ i.e.,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\hat{\zeta}_{r}(\boldsymbol{\sigma})=k_{F}s(\bm{\sigma})=k_{F}\left(1+\frac{a_{amp}}{1+\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)}\right)\,,
+\end{equation}
+
+\end_inset
+
+the tangent is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\hat{\zeta}_{r}}{\partial\boldsymbol{\sigma}}=\frac{\partial\hat{\zeta}_{r}}{\partial s(\bm{\sigma})}\frac{\partial s(\bm{\sigma})}{\partial\tr\left(\boldsymbol{\sigma}\right)}\cdot\mathbf{I}:\bm{\mathcal{C}}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\hat{\zeta}_{r}}{\partial s(\bm{\sigma})}=k_{F}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial s(\bm{\sigma})}{\partial\tr(\bm{\sigma})}=\frac{a\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)}{b\left(1+\exp\left(-\frac{\tr\left(\boldsymbol{\sigma}\right)-s_{0}}{b}\right)\right)^{2}}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Tangents that arise during the linearization along 
+\begin_inset Formula $\Delta c^{\gamma}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:chem-lin-dc"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Tangents for mass action reaction kinetics
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:chem-lin-dc-massaction"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mass-action forward reactions are linearized as:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\hat{c}_{i}^{\alpha}}{\partial c^{\beta}}=\hat{\zeta}_{i}\frac{\left(\nu_{i}^{\alpha}\right)^{2}}{c^{\alpha}}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Tangents for Hill-type reaction kinetics
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:chem-lin-disc-dc-hill"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hill-type activation reactions 
+\begin_inset Formula $f_{\rightarrow\beta}^{\alpha}$
+\end_inset
+
+ are linearized as:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\hat{c}_{\rightarrow\beta}^{\alpha}}{\partial c^{\beta}}=k_{H}\frac{\partial f_{\rightarrow\beta}^{\alpha}}{\partial c^{\beta}}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial f_{\rightarrow\beta}^{\alpha}}{\partial c^{\beta}}=\frac{nK^{n}f_{\rightarrow\beta}^{\alpha}}{c^{\beta}(K^{n}+\left(c^{\beta}\right)^{n}}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hill-type inhibition reactions 
+\begin_inset Formula $f_{\neg\gamma}^{\alpha}$
+\end_inset
+
+ are linearized as:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\hat{c}_{\neg\gamma}^{\alpha}}{\partial c^{\gamma}}=k_{H}\frac{\partial f_{\neg\gamma}^{\alpha}}{\partial c^{\gamma}}=k_{H}\frac{\partial\left(1-f_{\rightarrow\gamma}^{\alpha}\right)}{\partial c^{\beta}}=-k_{H}\frac{\partial f_{\rightarrow\gamma}^{\alpha}}{\partial c^{\gamma}}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When a chemical species 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is activated by 
+\begin_inset Formula $\beta$
+\end_inset
+
+ AND simultaneously inhibited by 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ the Hill-type function 
+\begin_inset Formula $f_{\rightarrow\beta\wedge\neg\gamma}^{\alpha}$
+\end_inset
+
+ is linearized as:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\hat{c}_{\rightarrow\beta\wedge\neg\gamma}^{\alpha}}{\partial c^{\beta}}=k_{H}f_{\neg\gamma}^{\alpha}\frac{\partial f_{\rightarrow\beta}^{\alpha}}{\partial c^{\beta}}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\hat{c}_{\rightarrow\beta\wedge\neg\gamma}^{\alpha}}{\partial c^{\gamma}}=-k_{H}f_{\rightarrow\beta}^{\alpha}\frac{\partial f_{\rightarrow\gamma}^{\alpha}}{\partial c^{\beta}}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\start_of_appendix
+Tensor Calculus
+\end_layout
+
+\begin_layout Section
+Tensor dyadic products and contraction
+\end_layout
+
+\begin_layout Standard
+We indicate tensor order as
+\begin_inset Formula 
+\[
+\begin{array}{ccccc}
+\text{Order} & \text{Function} & \text{Style} & \text{Symbolic} & \text{Indicial}\\
+0 & \text{scalar} & \text{lower-case, italicized} & a & a\\
+1 & \text{column vector} & \text{lower-case, italicized, bold} & \mathbf{a} & a_{i}\\
+2 & \text{matrix} & \text{upper-case, italicized, bold} & \mathbf{A} & A_{ij}\\
+3 & \text{matrix} & \text{upper-case, calligraphic, bold} & \bm{\mathcal{A}} & A_{ijk}\\
+4 & \text{matrix} & \text{upper-case, double-struck, bold} & \bm{\mathbb{A}} & A_{ijkl}
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The fourth-order dyadic products of two second order tensors are given as 
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{A\otimes B}\right)_{ijkl}=\mathbf{A}_{ij}\mathbf{B}_{kl}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{A\oslash B}\right)_{ijkl}=\mathbf{A}_{ik}\mathbf{B}_{jl}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{A\obslash B}\right)_{ijkl}=\mathbf{A}_{il}\mathbf{B}_{jk}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{A\odot B}\right)_{ijkl}=\frac{1}{2}\left(\mathbf{A\oslash B}+\mathbf{A\obslash B}\right)=\frac{1}{2}\left(\mathbf{A}_{ik}\mathbf{B}_{jl}+\mathbf{A}_{il}\mathbf{B}_{jk}\right)\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Contraction of two tensors is given by
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{A}:\mathbf{B}\right)=A_{ij}B_{ij}=B_{ij}A_{ij}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbb{A}:\mathbf{B}\right)_{ij}=A_{ijkl}B_{kl}\,,\ \left(\mathbf{B}:\mathbb{A}\right)_{kl}=B_{ij}A_{ijkl}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbb{A}:\mathbb{B}\right)=A_{ijkl}B_{ijkl}\,.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Useful derivatives
+\end_layout
+
+\begin_layout Standard
+Below are useful derivatives
+\begin_inset Formula 
+\begin{equation}
+\left(\frac{\partial\mathbf{A}}{\partial\mathbf{A}}\right)_{ijkl}=\mathbf{I}\oslash\mathbf{I}=\delta_{ik}\delta_{jl}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\frac{\partial\mathbf{A}^{T}}{\partial\mathbf{A}}\right)_{ijkl}=\mathbf{I}\obslash\mathbf{I}=\delta_{il}\delta_{kj}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\frac{\partial\mathbf{A}^{-1}}{\partial\mathbf{A}}\right)_{ijkl}=-\mathbf{A}^{-1}\oslash\mathbf{A}^{-T}=-A_{ik}^{-1}A_{lj}^{-1}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\frac{\partial\mathbf{A}^{-T}}{\partial\mathbf{A}}\right)_{ijkl}=-\mathbf{A}^{-T}\oslash\mathbf{A}^{-1}=-A_{ki}^{-1}A_{jl}^{-1}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\frac{\partial\tr\left(\mathbf{A}\right)}{\partial\mathbf{A}}\right)_{ij}=\mathbf{I}=\delta_{ij}\,,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\frac{\partial\det\left(\mathbf{A}\right)}{\partial\mathbf{A}}\right)_{ij}=\det\left(\mathbf{A}\right)\mathbf{A}^{-T}=\det\mathbf{\left(A\right)}A_{ij}\,,
+\end{equation}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "FEBioERD"
+options "bibtotoc,plain"
+encoding "default"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

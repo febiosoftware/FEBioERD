@@ -350,7 +350,7 @@ void FEKinematicGrowthRateDependent::UpdateSpecializedMaterialPoints(FEMaterialP
     // time info
     double dt = GetTimeInfo().timeIncrement;
     // Update theta from Newton's Method
-    double deltheta;
+    double deltheta = 0.0;
     do {
         double phi_cdot = gmat->EnvironmentalFunction(mp);
         double k_theta = gmat->ActivationFunction(mp);

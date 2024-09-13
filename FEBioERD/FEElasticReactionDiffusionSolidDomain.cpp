@@ -620,7 +620,7 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
             for (int i_b = 0; i_b < n_m; ++i_b)
             {
                 // Kuu matrix
-                mat3d Kuu = (mat3dd(gradN[i_a] * (s * gradN[i_b])) + vdotTdotv(gradN[i_a], C, gradN[i_b])) * detJ * gw[i_k];
+                mat3d Kuu = (mat3dd(gradN[i_a] * (s * gradN[i_b])) + vdotTdotv(gradN[i_a], Ce, gradN[i_b])) * detJ * gw[i_k];
                 ke.add(n_dpn*i_a, n_dpn*i_b, Kuu);
 
                 //}
