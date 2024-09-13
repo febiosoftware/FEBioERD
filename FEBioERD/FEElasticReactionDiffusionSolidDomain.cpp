@@ -586,12 +586,12 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
             if (p_kg)
             {
                 //SL: Running into non-convergence due to Cg. Removing for now.
-                //dchatdzhat = reacti->m_v[g_sol];
-                //double k_r = reacti->m_pFwd->ReactionRate(mp);
-                //double zhat = reactionSupply[i_r];
-                //double dzhatdkf = (k_r / zhat);
-                //dzhatdsigma = dchatdzhat * dzhatdkf * reacti->Tangent_ReactionSupply_Stress(mp);
-                //dchatde = C.dot(dzhatdsigma);
+                /*dchatdzhat = reacti->m_v[g_sol];
+                double k_r = reacti->m_pFwd->ReactionRate(mp);
+                double zhat = reactionSupply[i_r];
+                double dzhatdkf = (k_r / zhat);
+                dzhatdsigma = dchatdzhat * dzhatdkf * reacti->Tangent_ReactionSupply_Stress(mp);
+                dchatde = C.dot(dzhatdsigma);*/
             }
         }
 
@@ -599,12 +599,12 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
         {
             dTdc[g_sol] = p_kg->dTdc(mp, g_sol);
             //SL: Running into non-convergence due to Cg. Removing for now.
-            //mat3ds dcdotdC = 0.5 * J * (ep.m_F.inverse() * dchatde * ep.m_F.transinv()).sym();
-            //FEKinematicMaterialPointERD& kp = *mp.ExtractData<FEKinematicMaterialPointERD>();
-            //mat3ds dthetadC = dcdotdC * (gmat->ActivationFunction(mp) * gmat->m_gm(mp) * dt / kp.m_K_res);
-            //mat3ds dSdtheta = p_kg->dSdtheta(mp);
-            //tens4ds Cg = dyad1s(dSdtheta, dthetadC);
-            //C += (1.0 / J) * Cg.pp(ep.m_F);
+            /*mat3ds dcdotdC = 0.5 * J * (ep.m_F.inverse() * dchatde * ep.m_F.transinv()).sym();
+            FEKinematicMaterialPointERD& kp = *mp.ExtractData<FEKinematicMaterialPointERD>();
+            mat3ds dthetadC = dcdotdC * (gmat->ActivationFunction(mp) * gmat->m_gm(mp) * dt / kp.m_K_res);
+            mat3ds dSdtheta = p_kg->dSdtheta(mp);
+            tens4ds Cg = dyad1s(dSdtheta, dthetadC);
+            C += (1.0 / J) * Cg.pp(ep.m_F);*/
         }
         
         // Miscellaneous constants
@@ -620,7 +620,7 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
             for (int i_b = 0; i_b < n_m; ++i_b)
             {
                 // Kuu matrix
-                mat3d Kuu = (mat3dd(gradN[i_a] * (s * gradN[i_b])) + vdotTdotv(gradN[i_a], Ce, gradN[i_b])) * detJ * gw[i_k];
+                mat3d Kuu = (mat3dd(gradN[i_a] * (s * gradN[i_b])) + vdotTdotv(gradN[i_a], C, gradN[i_b])) * detJ * gw[i_k];
                 ke.add(n_dpn*i_a, n_dpn*i_b, Kuu);
 
                 //}
