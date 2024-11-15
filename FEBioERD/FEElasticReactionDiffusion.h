@@ -73,9 +73,6 @@ public:
     //! actual concentration (as opposed to effective concentration)
 	double Concentration(FEMaterialPoint& pt, const int sol);
 
-	//! porosity
-	double Porosity(FEMaterialPoint& pt);
-
 	//! solute density
 	double SoluteDensity(const int sol) { return m_pSolute[sol]->Density(); }
 
@@ -98,9 +95,6 @@ public:
 	int Reactions() { return (int)m_pReact.size(); }
 
 public: // parameters
-	FEParamDouble       m_phi0;     //!< solid volume fraction in reference configuration
-
-public:
 	double	m_Rgas;			//!< universal gas constant
 	double	m_Tabs;			//!< absolute temperature
 

@@ -43,7 +43,6 @@ using namespace std;
 
 // Material parameters for the FEElasticReactionDiffusion material
 BEGIN_FECORE_CLASS(FEElasticReactionDiffusion, FEMaterial)
-	ADD_PARAMETER(m_phi0   , FE_RANGE_CLOSED     (0.0, 1.0), "phi0"         );
 
 	// define the material properties
 	ADD_PROPERTY(m_pSolid , "solid"              , FEProperty::Required | FEProperty::TopLevel);
@@ -121,21 +120,6 @@ void FEElasticReactionDiffusion::Serialize(DumpStream& ar)
 }
 
 //-----------------------------------------------------------------------------
-//! Porosity in current configuration
-double FEElasticReactionDiffusion::Porosity(FEMaterialPoint& pt)
-{	
-	// solid referential volume fraction
-	double phisr = m_phi0(pt);
-	
-	double phiw = 1.0 - phisr;
-	// check for pore collapse
-	// TODO: throw an error if pores collapse
-	phiw = (phiw > 0) ? phiw : 0;
-	
-	return phiw;
-}
-
-//-----------------------------------------------------------------------------
 //! actual concentration
 double FEElasticReactionDiffusion::Concentration(FEMaterialPoint& pt, const int sol)
 {
@@ -177,9 +161,6 @@ vec3d FEElasticReactionDiffusion::SoluteFlux(FEMaterialPoint& pt, const int sol)
 {
 	FESolutesMaterialPoint& spt = *pt.ExtractData<FESolutesMaterialPoint>();
 	
-	// fluid volume fraction (porosity) in current configuration
-	double phiw = Porosity(pt);
-	
 	// concentration
 	double c = spt.m_c[sol];
 	
@@ -190,7 +171,7 @@ vec3d FEElasticReactionDiffusion::SoluteFlux(FEMaterialPoint& pt, const int sol)
 	mat3ds D = m_pSolute[sol]->m_pDiff->Diffusivity(pt);
 	
 	// solute flux j
-    vec3d j = -D * gradc * phiw;
+    vec3d j = -D * gradc;
 	
 	return j;
 }

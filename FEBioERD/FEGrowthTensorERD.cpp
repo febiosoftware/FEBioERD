@@ -287,6 +287,7 @@ double FEGrowthTensorERD::EnvironmentalFunction(FEMaterialPoint& pt)
 //! get solute concentration helper function
 double FEGrowthTensorERD::SoluteConcentration(FEMaterialPoint& pt)
 {
+    //SL: Todo: revisit this, provide options for effective solute concentration.
     FEElement* m_el = pt.m_elem;
     FEDomain& dom = dynamic_cast<FEDomain&>(*m_el->GetMeshPartition());
     FESoluteInterface* pm = dynamic_cast<FESoluteInterface*>(dom.GetMaterial());

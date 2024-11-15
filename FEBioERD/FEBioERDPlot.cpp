@@ -453,9 +453,7 @@ bool FEPlotEffectiveSoluteConcentrationERD::Save(FEDomain& dom, FEDataStream& a)
 	for (int i = 0; i < (int)m_sol.size(); ++i)
 	{
 		lid[i] = pm->FindLocalSoluteID(m_sol[i]);
-		if (lid[i] < 0) negs++;
 	}
-	if (negs == nsol) return false;
 
 	// save the concentrations
 	int N = dom.Nodes();
@@ -464,7 +462,7 @@ bool FEPlotEffectiveSoluteConcentrationERD::Save(FEDomain& dom, FEDataStream& a)
 		FENode& node = dom.Node(i);
 		for (int j = 0; j < nsol; ++j)
 		{
-			double c = (lid[j] >= 0 ? node.get(dof_C + j) : 0.0);
+			double c = node.get(dof_C + j);
 			a << c;
 		}
 	}

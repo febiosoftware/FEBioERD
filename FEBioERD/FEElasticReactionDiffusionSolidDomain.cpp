@@ -142,11 +142,6 @@ bool FEElasticReactionDiffusionSolidDomain::Init()
             ps.m_crp.assign(n_sol, 0);
             ps.m_gradc.assign(n_sol,vec3d(0,0,0));
             ps.m_j.assign(n_sol,vec3d(0,0,0));
-            
-            if (m_pMat->m_phi0(mp) > 1.0) {
-                feLogError("Referential solid volume fraction of multiphasic material cannot exceed unity!\nCheck ratios of sbm apparent and true densities.");
-                return false;
-            }
         }
     }
 
@@ -245,7 +240,7 @@ void FEElasticReactionDiffusionSolidDomain::InitMaterialPoints()
             for (int i_sol = 0; i_sol < n_sol; ++i_sol) {
                 ps.m_ca[i_sol] = m_pMat->Concentration(mp, i_sol);
                 ps.m_j[i_sol] = m_pMat->SoluteFlux(mp, i_sol);
-                ps.m_crp[i_sol] = m_pMat->Porosity(mp) * ps.m_ca[i_sol];
+                ps.m_crp[i_sol] = ps.m_ca[i_sol];
             }
         }
     }
@@ -330,7 +325,7 @@ void FEElasticReactionDiffusionSolidDomain::PreSolveUpdate(const FETimeInfo& tim
             // reset referential actual solute concentration at previous time
             int n_sol = m_pMat->Solutes();
             for (int i_sol = 0; i_sol < n_sol; ++i_sol) {
-                ps.m_crp[i_sol] = m_pMat->Porosity(mp) * ps.m_ca[i_sol];
+                ps.m_crp[i_sol] = ps.m_ca[i_sol];
             }
                         
             // reset chemical reaction element data
@@ -423,7 +418,7 @@ void FEElasticReactionDiffusionSolidDomain::ElementInternalForce(FESolidElement&
         
         vector<vec3d> j(spt.m_j);
         
-        // evaluate the porosity, its derivative w.r.t. J, and its gradient
+        // evaluate the concentration, its derivative w.r.t. J, and its gradient
         vector<double> chat(n_sol,0);
         
         // chemical reactions
@@ -585,26 +580,24 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
 
             if (p_kg)
             {
-                //SL: Running into non-convergence due to Cg. Removing for now.
-                /*dchatdzhat = reacti->m_v[g_sol];
+                dchatdzhat = reacti->m_v[g_sol];
                 double k_r = reacti->m_pFwd->ReactionRate(mp);
                 double zhat = reactionSupply[i_r];
                 double dzhatdkf = (k_r / zhat);
                 dzhatdsigma = dchatdzhat * dzhatdkf * reacti->Tangent_ReactionSupply_Stress(mp);
-                dchatde = C.dot(dzhatdsigma);*/
+                dchatde = C.dot(dzhatdsigma);
             }
         }
 
         if (p_kg)
         {
             dTdc[g_sol] = p_kg->dTdc(mp, g_sol);
-            //SL: Running into non-convergence due to Cg. Removing for now.
-            /*mat3ds dcdotdC = 0.5 * J * (ep.m_F.inverse() * dchatde * ep.m_F.transinv()).sym();
+            mat3ds dcdotdC = 0.5 * J * (ep.m_F.inverse() * dchatde * ep.m_F.transinv()).sym();
             FEKinematicMaterialPointERD& kp = *mp.ExtractData<FEKinematicMaterialPointERD>();
             mat3ds dthetadC = dcdotdC * (gmat->ActivationFunction(mp) * gmat->m_gm(mp) * dt / kp.m_K_res);
             mat3ds dSdtheta = p_kg->dSdtheta(mp);
             tens4ds Cg = dyad1s(dSdtheta, dthetadC);
-            C += (1.0 / J) * Cg.pp(ep.m_F);*/
+            C += (1.0 / J) * Cg.pp(ep.m_F);
         }
         
         // Miscellaneous constants
