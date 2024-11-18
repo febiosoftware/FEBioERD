@@ -583,7 +583,8 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
                 dchatdzhat = reacti->m_v[g_sol];
                 double k_r = reacti->m_pFwd->ReactionRate(mp);
                 double zhat = reactionSupply[i_r];
-                double dzhatdkf = (k_r / zhat);
+                // SL TODO: zhat is not always initialized (e.g., multistep problem where the first analysis step is quick such as pressurization or prestrain application before the rest of the analysis).
+                double dzhatdkf = (zhat == 0.0) ? 0.0 : k_r / zhat;
                 dzhatdsigma = dchatdzhat * dzhatdkf * reacti->Tangent_ReactionSupply_Stress(mp);
                 dchatde = C.dot(dzhatdsigma);
             }
