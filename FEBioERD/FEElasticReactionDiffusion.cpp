@@ -50,6 +50,7 @@ BEGIN_FECORE_CLASS(FEElasticReactionDiffusion, FEMaterial)
 	ADD_PROPERTY(m_pReact , "reaction"           , FEProperty::Optional);
 
 	ADD_PROPERTY(m_Q, "mat_axis", FEProperty::Optional);
+	ADD_PARAMETER(m_tangent_override, "tangent_override");
 
 END_FECORE_CLASS();
 
@@ -64,6 +65,8 @@ FEElasticReactionDiffusion::FEElasticReactionDiffusion(FEModel* pfem) : FEMateri
 	m_Rgas = 0; m_Tabs = 0;
 
 	m_pSolid = 0;
+
+	m_tangent_override = false;
 }
 
 //-----------------------------------------------------------------------------

@@ -578,7 +578,7 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
 
             reactionSupply[i_r] = reacti->ReactionSupply(mp);
 
-            if (p_kg)
+            if (p_kg && !this->m_pMat->m_tangent_override)
             {
                 dchatdzhat = reacti->m_v[g_sol];
                 double k_r = reacti->m_pFwd->ReactionRate(mp);
@@ -593,12 +593,15 @@ bool FEElasticReactionDiffusionSolidDomain::ElementElasticReactionDiffusionStiff
         if (p_kg)
         {
             dTdc[g_sol] = p_kg->dTdc(mp, g_sol);
-            mat3ds dcdotdC = 0.5 * J * (ep.m_F.inverse() * dchatde * ep.m_F.transinv()).sym();
-            FEKinematicMaterialPointERD& kp = *mp.ExtractData<FEKinematicMaterialPointERD>();
-            mat3ds dthetadC = dcdotdC * (gmat->ActivationFunction(mp) * gmat->m_gm(mp) * dt / kp.m_K_res);
-            mat3ds dSdtheta = p_kg->dSdtheta(mp);
-            tens4ds Cg = dyad1s(dSdtheta, dthetadC);
-            C += (1.0 / J) * Cg.pp(ep.m_F);
+            if (!this->m_pMat->m_tangent_override)
+            {
+                mat3ds dcdotdC = 0.5 * J * (ep.m_F.inverse() * dchatde * ep.m_F.transinv()).sym();
+                FEKinematicMaterialPointERD& kp = *mp.ExtractData<FEKinematicMaterialPointERD>();
+                mat3ds dthetadC = dcdotdC * (gmat->ActivationFunction(mp) * gmat->m_gm(mp) * dt / kp.m_K_res);
+                mat3ds dSdtheta = p_kg->dSdtheta(mp);
+                tens4ds Cg = dyad1s(dSdtheta, dthetadC);
+                C += (1.0 / J) * Cg.pp(ep.m_F);
+            }
         }
         
         // Miscellaneous constants

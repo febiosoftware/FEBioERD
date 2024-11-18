@@ -97,6 +97,7 @@ public:
 public: // parameters
 	double	m_Rgas;			//!< universal gas constant
 	double	m_Tabs;			//!< absolute temperature
+	bool	m_tangent_override;	//!< override default tangent that includes Cg
 
 protected:
 	// material properties
