@@ -77,8 +77,8 @@ public:
 	FEBioERDModule() {}
 	void InitModel(FEModel* fem)
 	{
-		/*DOFS& dofs = fem->GetDOFS();
-		int var = dofs.AddVariable("concentration", VAR_ARRAY);*/
+		DOFS& dofs = fem->GetDOFS();
+		int var = dofs.AddVariable("concentration", VAR_ARRAY);
 	}
 };
 
@@ -176,6 +176,7 @@ FECORE_PLUGIN void PluginInitialize(FECoreKernel& febio)
 	REGISTER_FECORE_CLASS(FEPlotActualSoluteConcentrationERD, "solute concentration erd");
 	REGISTER_FECORE_CLASS(FEPlotEffectiveSoluteConcentrationERD, "effective solute concentration erd");
 	REGISTER_FECORE_CLASS(FEPlotSoluteFluxERD, "solute flux erd");
+	REGISTER_FECORE_CLASS(FEPlotSPREffectiveConcentrationERD, "effective SPR solute concentration erd");
 
 	febio.SetActiveModule(0);
 }

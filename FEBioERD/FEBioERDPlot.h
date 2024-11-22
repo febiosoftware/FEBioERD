@@ -159,3 +159,16 @@ public:
 protected:
 	vector<int>	m_sol;
 };
+
+//-----------------------------------------------------------------------------
+//! SPR projection of solute flux (for elastic-reaction-diffusion problems)
+class FEPlotSPREffectiveConcentrationERD : public FEPlotDomainData
+{
+public:
+	FEPlotSPREffectiveConcentrationERD(FEModel* pfem);
+	bool Save(FEDomain& dom, FEDataStream& a);
+protected:
+	vector<int>	m_sol;
+};
+
+FECORE_API void writeSPRElementValueVectorDoubleERD(FESolidDomain& dom, FEDataStream& ar, std::function<std::vector<double>(const FEMaterialPoint&)> fnc, int interpolOrder = -1);

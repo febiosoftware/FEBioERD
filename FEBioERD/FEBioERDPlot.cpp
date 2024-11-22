@@ -41,6 +41,7 @@ SOFTWARE.*/
 #include <FECore/writeplot.h>
 #include <FECore/FEEdgeList.h>
 #include <FECore/mathalg.h>
+#include <FECore/FESPRProjection.h>
 
 //=============================================================================
 //							D O M A I N   D A T A
@@ -535,4 +536,106 @@ bool FEPlotSoluteFluxERD::Save(FEDomain& dom, FEDataStream& a)
 		}
 	}
 	return true;
+}
+
+FEPlotSPREffectiveConcentrationERD::FEPlotSPREffectiveConcentrationERD(FEModel* pfem) : FEPlotDomainData(pfem, PLT_ARRAY, FMT_NODE)
+{
+	DOFS& dofs = pfem->GetDOFS();
+	int nsol = dofs.GetVariableSize("concentration");
+	SetArraySize(nsol);
+
+	// collect the names
+	int ndata = pfem->GlobalDataItems();
+	vector<string> s;
+	for (int i = 0; i < ndata; ++i)
+	{
+		FESoluteData* ps = dynamic_cast<FESoluteData*>(pfem->GetGlobalData(i));
+		if (ps)
+		{
+			s.push_back(ps->GetName());
+			m_sol.push_back(ps->GetID());
+		}
+	}
+	assert(nsol == (int)s.size());
+	SetArrayNames(s);
+	SetUnits(UNIT_CONCENTRATION);
+}
+
+//-----------------------------------------------------------------------------
+bool FEPlotSPREffectiveConcentrationERD::Save(FEDomain& dom, FEDataStream& a)
+{
+	// For now, this is only available for solid domains
+	if (dom.Class() != FE_DOMAIN_SOLID) return false;
+	FESolidDomain& sd = static_cast<FESolidDomain&>(dom);
+	writeSPRElementValueVectorDoubleERD(sd, a, [](const FEMaterialPoint& mp){
+		const FESolutesMaterialPoint* pt = mp.ExtractData<FESolutesMaterialPoint>();
+		if (pt == 0) return std::vector<double>(0.0);
+
+		return pt->m_c;
+	});
+	return true;
+}
+
+//-------------------------------------------------------------------------------------------------
+void writeSPRElementValueVectorDoubleERD(FESolidDomain& dom, FEDataStream& ar, std::function<std::vector<double>(const FEMaterialPoint&)> fnc, int interpolOrder)
+{
+	FEElasticReactionDiffusion* erd_mat = dom.GetMaterial()->ExtractProperty<FEElasticReactionDiffusion>();
+	const int n_sol = erd_mat->Solutes();
+
+	// get all nodes and elements
+	int NN = dom.Nodes();
+	int NE = dom.Elements();
+
+	// build the element data array
+	vector<vector< vector<double> > > ED(n_sol);
+	// for each component
+	for (int n = 0; n < n_sol; ++n)
+	{
+		// fill element data. for each element add the number of gauss points in the element.
+		ED[n].resize(NE);
+		for (int i = 0; i < NE; ++i)
+		{
+			FESolidElement& e = dom.Element(i);
+			int nint = e.GaussPoints();
+
+			ED[n][i].assign(nint, 0.0);
+		}
+	}
+
+	// this array will store the results
+	FESPRProjection map;
+	map.SetInterpolationOrder(interpolOrder);
+	vector<vector<double> >val(n_sol);
+
+	// fill the ED array
+	for (int i = 0; i < NE; ++i)
+	{
+		FESolidElement& el = dom.Element(i);
+		int nint = el.GaussPoints();
+		for (int j = 0; j < nint; ++j)
+		{
+			FEMaterialPoint& mp = *el.GetMaterialPoint(j);
+			vector<double> c = fnc(mp);
+
+			// loop over all solutes components
+			for (int n = 0; n < n_sol; ++n)
+			{
+				ED[n][i][j] = c[n];
+			}
+		}
+	}
+
+	// project to nodes
+	// loop over stress components
+	for (int n = 0; n < n_sol; ++n)
+	{
+		map.Project(dom, ED[n], val[n]);
+	}
+
+	// copy results to archive
+	for (int i_node = 0; i_node < NN; ++i_node)
+	{
+		for (int i_sol = 0; i_sol < n_sol; ++i_sol)
+			ar.push_back((float)val[i_sol][i_node]);
+	}
 }
