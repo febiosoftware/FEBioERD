@@ -1,12 +1,11 @@
-cmake_minimum_required(VERSION 3.1.0)
-
-set(CMAKE_CXX_STANDARD 11)
+cmake_minimum_required(VERSION 3.15)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+mark_as_advanced(FORCE CMAKE_INSTALL_PREFIX)
 
 project(FEBioERD)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_FILES_DIRECTORY ${CMAKE_BINARY_DIR}/CMakeFiles)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -22,7 +21,10 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-# Find FEBio SDK or git repo automatically
+find_package(FEBio REQUIRED)
+
+##### Set appropriate defines and includes #####
+
 if(WIN32)
 	set(TEMP_PATHS ${CMAKE_SOURCE_DIR}/.. ${CMAKE_SOURCE_DIR}/../.. $ENV{HOMEPATH}/ $ENV{HOMEPATH}/source/repos $ENV{HOMEPATH}/*)
 else()
@@ -175,4 +177,4 @@ set_property(TARGET FEBioERD PROPERTY AUTOGEN_BUILD_DIR ${CMAKE_BINARY_DIR}/CMak
 
 ##### Link Libraries #####
 
-target_link_libraries(FEBioERD ${FECORE} ${FEBIOMECH} ${FEBIOMIX})
+target_link_libraries(FEBioERD FEBio::FECore FEBio::FEBioMech FEBio::FEBioMix)

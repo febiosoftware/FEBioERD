@@ -603,8 +603,8 @@ void writeSPRElementValueVectorDoubleERD(FESolidDomain& dom, FEDataStream& ar, s
 	}
 
 	// this array will store the results
-	FESPRProjection map;
-	map.SetInterpolationOrder(interpolOrder);
+	FESPRProjection map = FESPRProjection(dom, interpolOrder);
+	//map.SetInterpolationOrder(interpolOrder);
 	vector<vector<double> >val(n_sol);
 
 	// fill the ED array
@@ -629,7 +629,7 @@ void writeSPRElementValueVectorDoubleERD(FESolidDomain& dom, FEDataStream& ar, s
 	// loop over stress components
 	for (int n = 0; n < n_sol; ++n)
 	{
-		map.Project(dom, ED[n], val[n]);
+		map.Project(ED[n], val[n]);
 	}
 
 	// copy results to archive
