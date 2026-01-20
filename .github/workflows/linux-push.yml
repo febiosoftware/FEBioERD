@@ -1,0 +1,20 @@
+name: CI - Linux Push
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+jobs:
+  call_workflow:
+    uses: febiosoftware/febio-workflows/.github/workflows/linux-reusable.yml@develop
+    with:
+      package-name: febioerd
+      requires-sdk: true
+      plugin: true
+      publish: true
+    secrets: inherit

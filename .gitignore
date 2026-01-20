@@ -368,6 +368,7 @@ MigrationBackup/
 *.pch
 
 # Compiled Dynamic libraries
+*.dll
 *.so
 *.dylib
 
