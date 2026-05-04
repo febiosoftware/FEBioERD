@@ -12,7 +12,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+*.sln
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -368,6 +368,7 @@ MigrationBackup/
 *.pch
 
 # Compiled Dynamic libraries
+*.dll
 *.so
 *.dylib
 

@@ -39,6 +39,7 @@ SOFTWARE.*/
 #include <FEBioMix/FEFixedConcentration.h>
 #include <FEBioMix/FEPrescribedConcentration.h>
 
+#include "version.h"
 #include "FEReactionERD.h"
 #include "FEReactionRateConstERD.h"
 #include "FEConcentrationIndependentReactionERD.h"
@@ -89,9 +90,9 @@ FECORE_PLUGIN int GetSDKVersion()
 
 FECORE_PLUGIN void GetPluginVersion(int& major, int& minor, int& patch)
 {
-	major = 1;
-	minor = 0;
-	patch = 0;
+	major = VERSION;
+	minor = SUBVERSION;
+	patch = SUBSUBVERSION;
 }
 
 FECORE_PLUGIN void PluginInitialize(FECoreKernel& febio)

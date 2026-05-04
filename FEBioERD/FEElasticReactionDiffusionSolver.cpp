@@ -805,7 +805,7 @@ void FEElasticReactionDiffusionSolver::UpdateKinematics(vector<double>& ui)
 	for (int i = 0; i < fem.SurfacePairConstraints(); ++i)
 	{
 		FESurfacePairConstraint* spc = fem.SurfacePairConstraint(i);
-		if (spc->IsActive()) spc->Update(ui);
+		if (spc->IsActive()) spc->Update(m_Ui, ui);
 	}
 
 	// update solute-poroelastic data
